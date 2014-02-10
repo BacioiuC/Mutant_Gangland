@@ -177,7 +177,7 @@ end
 function unit:_drawMovementPath(_sx, _sy, _ex, _ey)
 	local path = {}
 	local length = 0
-	if --[[unit:_inRange(_ex, _ey) and --]]_grid:isWalkableAt(_ex, _ey) then
+	if --[[unit:_inRange(_ex, _ey) and --]]_grid:isWalkableAt(_ex, _ey, walkable) then
 		Game:updatePathfinding()
 		path = pather:getPath(_sx, _sy, _ex, _ey)
 		length = path:getLength( )
@@ -236,7 +236,7 @@ function unit:_getTargetLocation(_tPosX, _tPosY, _anUnit)
 				v.goal_y = _tPosY
 			end
 			local length = 0
-			if _grid:isWalkableAt(v.goal_x, v.goal_y) then
+			if _grid:isWalkableAt(v.goal_x, v.goal_y, walkable) then
 				--print("TEAM 2")
 				
 				local __x = math.floor(v.x)
@@ -360,7 +360,7 @@ function unit:_findNearestEmptySpot(__x, __y, __range, _unit)
 end
 
 function unit:_isWalkable(_x, _y) 
-	local _bool = _grid:isWalkableAt(_x, _y)
+	local _bool = _grid:isWalkableAt(_x, _y, walkable)
 	return _bool
 end
 
@@ -669,6 +669,7 @@ function unit:_addPathRange(_id, _otherUnit)
 	unit:_removeRange( )
 	self._inRangeUnitHpTable = { }
 	self._internalRangeTable = { }
+	local timerStart = Game.worldTimer
 	local v
 	if _otherUnit == nil then
 		v = self._unitTable[_id]
@@ -749,6 +750,52 @@ function unit:_addPathRange(_id, _otherUnit)
 	--end
 
 	--print("SIZE OF RANGE TABLE: "..#self._rangeTable.."")
+
+	local timerEnd = Game.worldTimer
+	local timeTaken = timerStart - timerEnd
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 end
 
 function unit:_returnRangeTable( )
@@ -1082,7 +1129,7 @@ function unit:g_getTargetLocation(_unit, _x, _y)
 		v.goal_x = _x
 		v.goal_y = _y
 	--	print("MOVING SET TO TRUE")
-		if _grid:isWalkableAt(v.goal_x, v.goal_y) then
+		if _grid:isWalkableAt(v.goal_x, v.goal_y, walkable) then
 			--print("GRID WALKABLE AT THERE")
 			local __x = math.floor(v.x)
 			local __y = math.floor(v.y)

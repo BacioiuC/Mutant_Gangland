@@ -1107,7 +1107,7 @@ function juliette:getTargetLocation(_unit, _x, _y, _chkForPath)
 		--v.goal_x, v.goal_y = _x, _y
 	
 		------print("GOAL FUCKING X IS: ".._x.." AND GOAL FUCKING Y IS: ".._y.."")
-		if _grid:isWalkableAt(_x, _y) then
+		if _grid:isWalkableAt(_x, _y, walkable) then
 			------print("WE CAN HAZ GO")
 			local __x = math.floor(v.x)
 			local __y = math.floor(v.y)
