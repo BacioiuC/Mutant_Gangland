@@ -23,3 +23,8 @@ Mutant Gangland uses the following library and/or frameworks:
    * **MOAI-GUI** - [link](https://github.com/derickd/moaigui)
    * **Yonaba Jumper** - [link](https://github.com/Yonaba/Jumper)
 
+# Building the game
+
+In order to build and run the source you need a MOAI Host that can run it. You can do so by downloading it from the MOAI Forums. The source itself is standalone and can be used with most hosts with no changes at all. The assets for the game are not available with the source. You can get them by acquiring the [game](http://bacioiucipriangmailcom.itch.io/mutant-gangland).
+
+
