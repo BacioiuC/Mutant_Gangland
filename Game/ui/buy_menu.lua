@@ -217,6 +217,14 @@ function interface:_update_buymenu_unitList( )
 	else
 		player1Faction = self._teamToPlayer[_turn].team
 	end
+	--player1Faction = self._teamToPlayer[_turn].team
+
+	print("-----------------------------------------------------")
+	print("-----------------------------------------------------")
+	print("TEAM: ".._turn.."")
+	print("FACTION: "..player1Faction.."")
+	print("-----------------------------------------------------")
+	print("-----------------------------------------------------")
 
 	for i = 1, 5 do
 		local row = self._unitWidgetList:getRow(i)
@@ -224,6 +232,45 @@ function interface:_update_buymenu_unitList( )
 		row:getCell(2):setText( ""..self._buyUnitTable[player1Team][player1Faction][i].name.."" )
 			
 	end
+end
+
+
+function interface:_update_buyMenu_unitInfo(_selID)
+	local widgetList = self._bm_widgets.infoWidget.window
+
+	local turn = unit:_returnTurn( )
+	local player1Team = self._teamToPlayer[turn].team
+	local player1Faction = 1
+	if turn == 2 then
+		if self._teamToPlayer[turn].team == 1 then
+			player1Faction = 2
+		else
+			player1Faction = 1
+		end
+	else
+		player1Faction = self._teamToPlayer[turn].team
+	end
+
+	local statTable = { }
+	local unTable = unit_type[player1Faction][_selID]
+	local answer = "NO"
+	if unTable.canCapture == true then
+		answer = "YES"
+	end
+	statTable = {  unTable.health,  unTable.max_range,  unTable.mobility,  unTable.damage,  answer, unTable.cost  }
+	for i = 1, #self._buyUnitStats+1  do
+		local row = widgetList:getRow(i)
+
+		-- The return from getCell is the widget created by setColumnWidget, so the normal
+		-- functionality for the widget is available.
+		if i <= #self._buyUnitStats then
+			row:getCell(1):setImage( element.resources.getPath( "buy_menu/bg_normal_4x4.png" ) ) 
+			row:getCell(2):setImage(element.resources.getPath( ""..self._biconList[i].."")) 
+			row:getCell(3):setImage(element.resources.getPath( "buy_menu/bg_middle_to_end.png" ) )
+			row:getCell(3):setText( " "..statTable[i].."" )
+		end
+	end
+	--widgetList:setBackgroundImage(element.resources.getPath("buy_menu/selection_image.png"))--empty.png
 end
 
 function interface:_addBuyButton(_roots, _widgets, _groups)
@@ -510,32 +557,6 @@ function interface:_clear_buyMenu_info( )
 	--widgetList:setBackgroundImage(element.resources.getPath("buy_menu/empty.png"))--empty.png
 end
 
-function interface:_update_buyMenu_unitInfo(_selID)
-	local widgetList = self._bm_widgets.infoWidget.window
-
-	local turn = unit:_returnTurn( )
-	local player1Team = self._teamToPlayer[turn].team
-	local statTable = { }
-	local unTable = unit_type[player1Team][_selID]
-	local answer = "NO"
-	if unTable.canCapture == true then
-		answer = "YES"
-	end
-	statTable = {  unTable.health,  unTable.max_range,  unTable.mobility,  unTable.damage,  answer, unTable.cost  }
-	for i = 1, #self._buyUnitStats+1  do
-		local row = widgetList:getRow(i)
-
-		-- The return from getCell is the widget created by setColumnWidget, so the normal
-		-- functionality for the widget is available.
-		if i <= #self._buyUnitStats then
-			row:getCell(1):setImage( element.resources.getPath( "buy_menu/bg_normal_4x4.png" ) ) 
-			row:getCell(2):setImage(element.resources.getPath( ""..self._biconList[i].."")) 
-			row:getCell(3):setImage(element.resources.getPath( "buy_menu/bg_middle_to_end.png" ) )
-			row:getCell(3):setText( " "..statTable[i].."" )
-		end
-	end
-	--widgetList:setBackgroundImage(element.resources.getPath("buy_menu/selection_image.png"))--empty.png
-end
 
 function _handleCancelPressed( )
 	interface:setBuyMenu(false)

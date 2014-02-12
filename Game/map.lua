@@ -306,8 +306,10 @@ function map:scroll( )
 
 	if math.aprox(map.offY, map.targetLocY, 0.01) == true and math.aprox(map.offX, map.targetLocX, 0.01) == true then
 		self._globalMapScroll = false
+		print("STILL FALSE!")
 	else
 		self._globalMapScroll = true
+		print("STILL TRUE!")
 	end
 	--print("MAP.offX "..map.offX.." | TargetX: "..map.targetLocX.."")
 	--print("MAP.offY "..map.offY.." | TargetY: "..map.targetLocY.."")

@@ -174,9 +174,12 @@ end
 function juliette:_createUnitAtTemple(_temple, _bool, _id, _type)
 	local bld = _temple
 	local bool = _bool
-	local team = unit:_returnTurn()
+	local turn = unit:_returnTurn()
+	local team = self._player[turn].team
+	print("TEAM IS: "..team.."")
+	print("TURN IS: "..turn.."")
 	if bool == true then -- so we have an assault nearby
-		if self._player[team].coins >= unit_type[team][3].cost then
+		if self._player[turn].coins >= unit_type[team][3].cost then
 			building:_createUnits(_temple, unit:_returnTurn(), 3)
 		else
 			_temple.canProduce = false
@@ -189,8 +192,8 @@ function juliette:_createUnitAtTemple(_temple, _bool, _id, _type)
 		end--]]
 		local unType = self:_checkUnitRatioAndDecideSpawn( )
 
-		if self._player[team].coins >= unit_type[team][unType].cost then
-			building:_createUnits(_temple, team, unType)
+		if self._player[turn].coins >= unit_type[team][unType].cost then
+			building:_createUnits(_temple, turn, unType)
 
 		else
 			_temple.canProduce = false

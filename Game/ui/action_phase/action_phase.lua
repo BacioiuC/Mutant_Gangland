@@ -804,6 +804,10 @@ function interface:_updateTurnSlide()
 		--	self._cmpSign:tweenPos(24 , -50)
 		--end
 	end
+
+	if self._buyMenuTween == true then
+		zoomHandle:setPos(5000, 2)
+	end
 end
 
 function interface:_getSlideState( )

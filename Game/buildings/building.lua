@@ -348,13 +348,13 @@ function building:createNewUnit(_building, _turn, _dp)
                 print("STEP ONE !!!!11111!!11!!")
                 print("TURN IS: "..turn.."")
 
-                if _turn == 2 then
+                --[[if _turn == 2 then
                 	if faction == 1 then
                 		faction = 2
                 	elseif faction == 2 then
                 		faction = 1
                 	end
-                end
+                end--]]
                 print("FACTION IS: "..faction.."")
                 print("COST SHOULD BE: "..unit_type[faction][_unitType].cost.."")
                 if self._player[_turn].coins >= unit_type[faction][_unitType].cost then
