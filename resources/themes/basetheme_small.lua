@@ -2,38 +2,38 @@
 data = {
 	textstyles = {
 		default = {
-			font = "atari full.TTF",
-			size = 2,
-			color = {1, 0, 0},
+			font = "atari full.ttf",
+			size = 12,
+			color = {0.431, 0.569, 0.298},
 		},
 		listselected = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {0, 0, 0, 1}
 		},
 		listunselected = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {1, 0, 0, 1}
 		},
 		blue = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {1, 0, 0, 1},
 			
 		},
 		unitInfo = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {1, 1, 1, 1},
 		},
 		buyMenu_coins = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {0.431, 0.569, 0.298, 1}
 		},
 		buyMenu_coins_noCash = {
-			font = "atari full.TTF",
+			font = "atari full.ttf",
 			size = 1,
 			color = {1, 1, 1, 1}
 		},

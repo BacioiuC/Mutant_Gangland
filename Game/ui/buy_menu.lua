@@ -85,6 +85,8 @@ function interface:_buy_menu_init( )
 
 	-- unit display go here
 	local roots, widgets, groups = g:loadLayout(resources.getPath("buymenu.lua"))
+
+	self._buyMenuWidgets = widgets
 	buyPanel = widgets.bgPanel.window
 	buyPanel:registerEventHandler(buyPanel.EVENT_MOUSE_ENTERS, nil, _handleMouseEnters)
 	buyPanel:registerEventHandler(buyPanel.EVENT_MOUSE_LEAVES, nil, _handleMouseLeaves)
@@ -126,13 +128,8 @@ end
 
 function interface:_keyboardNavigationThroughMenu(key)
 
-	if key == 115 then
-		self._pointerPosition = self._pointerPosition - 1
-	elseif key == 119 then
-		self._pointerPosition = self._pointerPosition + 1
-	end
 
-	if self._pointerPosition < 1 then self._pointerPosition = 1 end
+	--[[if self._pointerPosition < 1 then self._pointerPosition = 1 end
 	if self._pointerPosition > #self._buyMenuElementsTable then self._pointerPosition = #self._buyMenuElementsTable end
 	local tableElement = self._buyMenuElementsTable[self._pointerPosition].v
 	local tableName = self._buyMenuElementsTable[self._pointerPosition].i
@@ -140,14 +137,26 @@ function interface:_keyboardNavigationThroughMenu(key)
 	local y = tableElement.window:screenY()
 
 	print("X IS: "..x.. " WHILE Y IS: "..y.."")
+	local gMSX, gMSY = element.gui:getMouseCoords( )
+	print("MS X: "..gMSX.." MOUSE Y: "..gMSY.."")
 	local sx, sy = tableElement.window:getDim()
 	print("CHILD NAME I IS: "..self._buyMenuElementsTable[self._pointerPosition].input.."")
 
 	element.gui:setFocus(tableElement.window)
-	element.gui:injectMouseMove(x+sx/2, y+sy/2)
+	element.gui:injectMouseMove(x+2, y+2)
+	
 
+	if key == 115 then
+		self._pointerPosition = self._pointerPosition - 1
+	elseif key == 119 then
+		self._pointerPosition = self._pointerPosition + 1
+	elseif key == 32 then
+		element.gui:injectMouseButtonDown(inputconstants.LEFT_MOUSE_BUTTON)
+	end
+	element.gui:injectMouseMove(x+2, y+2)--]]
 end
 
+ 
 function interface:_makeBuyMenu(_roots, _widgets, _groups)
 
 end
@@ -155,9 +164,9 @@ end
 function interface:_populate_buyMenu_unitsList(_roots, _widgets, _groups)
 	local roots, widgets, groups = _roots, _widgets, _groups
 
+
+	
 	local _turn = 1
-	print("TURN IS: ".._turn.."")
-	print("TURN IS: ".._turn.."")
 
 	local player1Team = _turn
 	local player1Faction = self._teamToPlayer[_turn].team
@@ -219,13 +228,6 @@ function interface:_update_buymenu_unitList( )
 	end
 	--player1Faction = self._teamToPlayer[_turn].team
 
-	print("-----------------------------------------------------")
-	print("-----------------------------------------------------")
-	print("TEAM: ".._turn.."")
-	print("FACTION: "..player1Faction.."")
-	print("-----------------------------------------------------")
-	print("-----------------------------------------------------")
-
 	for i = 1, 5 do
 		local row = self._unitWidgetList:getRow(i)
 		row:getCell(1):setImage( element.resources.getPath( self._buyUnitTable[player1Team][player1Faction][i].icon ) )
@@ -254,8 +256,10 @@ function interface:_update_buyMenu_unitInfo(_selID)
 	local statTable = { }
 	local unTable = unit_type[player1Faction][_selID]
 	local answer = "NO"
-	if unTable.canCapture == true then
-		answer = "YES"
+	if unTable ~= nil then
+		if unTable.canCapture == true then
+			answer = "YES"
+		end
 	end
 	statTable = {  unTable.health,  unTable.max_range,  unTable.mobility,  unTable.damage,  answer, unTable.cost  }
 	for i = 1, #self._buyUnitStats+1  do
@@ -401,6 +405,10 @@ function interface:_addPowerupButtonsTemplate(_id)
 	table.insert(self._powerupBuyButtons, tempButton)
 end
 
+function interface:_getBuyMenuTweenStatus( )
+	return self._buyMenuTween 
+end
+
 function interface:_tweenBuyMenu( )
 	local buyX = 0
 	local turn = unit:_returnTurn( )
@@ -421,6 +429,11 @@ end
 function interface:setBuyMenu(_bool, _building)
 
 	self._buyMenuTween = _bool
+	if self._buyMenuTween == true then
+		self:_addUiToDaddyTable(self._buyMenuWidgets, "infoWidget", "infoWidgetBG", "bgPanel")
+	else
+		interface:_clearUiWidgets( )
+	end
 	self:_disableButtonsBasedOnMoney(1)
 	if _building ~= nil then
 		--------------------------------

@@ -49,6 +49,9 @@ function interface:_addBottomBarButtons( )
 	setButton = element.gui:createButton( )
 	setButton:setDim(10, 15)
 	setButton:setNormalImage(element.resources.getPath("/level_editor_gui/set_button.png") )
+	setButton:setHoverImage(element.resources.getPath("/level_editor_gui/set_button_pressed.png") )
+	setButton:setPushedImage(element.resources.getPath("/level_editor_gui/set_button_pressed.png") )
+
 	setButton:setPos(1, -6)
 	setButton:registerEventHandler(setButton.EVENT_BUTTON_CLICK, nil, _handleSetButtonPressed )
 
@@ -57,6 +60,8 @@ function interface:_addBottomBarButtons( )
 	delButton = element.gui:createButton( )
 	delButton:setDim(10, 15)
 	delButton:setNormalImage(element.resources.getPath("/level_editor_gui/del_button.png") )
+	delButton:setHoverImage(element.resources.getPath("/level_editor_gui/del_button_pressed.png") )
+	delButton:setPushedImage(element.resources.getPath("/level_editor_gui/del_button_pressed.png") )
 	delButton:setPos(12, -6)
 	delButton:registerEventHandler(delButton.EVENT_BUTTON_CLICK, nil, _handleDelButtonPressed )
 
@@ -65,6 +70,9 @@ function interface:_addBottomBarButtons( )
 	listButton = element.gui:createButton()
 	listButton:setDim(10, 15)
 	listButton:setNormalImage(element.resources.getPath("/level_editor_gui/list_button.png") )
+	listButton:setHoverImage(element.resources.getPath("/level_editor_gui/list_button_pressed.png") )
+	listButton:setPushedImage(element.resources.getPath("/level_editor_gui/list_button_pressed.png") )
+
 	listButton:setPos(23, -6)
 	listButton:registerEventHandler(listButton.EVENT_BUTTON_CLICK, nil, _handleListButtonPressed )
 
@@ -73,6 +81,9 @@ function interface:_addBottomBarButtons( )
 	colButton = element.gui:createButton()
 	colButton:setDim(10, 15)
 	colButton:setNormalImage(element.resources.getPath("/level_editor_gui/col_button.png") )
+	colButton:setHoverImage(element.resources.getPath("/level_editor_gui/col_button_pressed.png") )
+	colButton:setPushedImage(element.resources.getPath("/level_editor_gui/col_button_pressed.png") )
+
 	colButton:setPos(34, -6)
 	colButton:registerEventHandler(colButton.EVENT_BUTTON_CLICK, nil, _handleColButtonPressed )
 
@@ -81,6 +92,10 @@ function interface:_addBottomBarButtons( )
 	colMButton = element.gui:createButton()
 	colMButton:setDim(10, 15)
 	colMButton:setNormalImage(element.resources.getPath("/level_editor_gui/colM_button.png") )
+	colMButton:setHoverImage(element.resources.getPath("/level_editor_gui/colM_button_pressed.png") )
+	colMButton:setPushedImage(element.resources.getPath("/level_editor_gui/colM_button_pressed.png") )
+
+
 	colMButton:setPos(45, -6)
 	colMButton:registerEventHandler(colMButton.EVENT_BUTTON_CLICK, nil, _handleColMButtonPressed )
 
@@ -89,6 +104,9 @@ function interface:_addBottomBarButtons( )
 	menuButton = element.gui:createButton( )
 	menuButton:setDim(10, 15)
 	menuButton:setNormalImage(element.resources.getPath("/level_editor_gui/menu_button.png") )
+	menuButton:setHoverImage(element.resources.getPath("/level_editor_gui/menu_button_pressed.png") )
+	menuButton:setPushedImage(element.resources.getPath("/level_editor_gui/menu_button_pressed.png") )
+
 	menuButton:setPos(90+self._offsetAndroidX, -6)
 	menuButton:registerEventHandler(menuButton.EVENT_BUTTON_CLICK, nil, _handleMenuButtonPressed )
 
@@ -97,6 +115,10 @@ function interface:_addBottomBarButtons( )
 	scrollButton = element.gui:createButton( )
 	scrollButton:setDim(10, 15)
 	scrollButton:setNormalImage(element.resources.getPath("/level_editor_gui/scroll_button.png") )
+	scrollButton:setHoverImage(element.resources.getPath("/level_editor_gui/scroll_button_pressed.png") )
+	scrollButton:setPushedImage(element.resources.getPath("/level_editor_gui/scroll_button_pressed.png") )
+
+	
 	scrollButton:setPos(56+self._offsetAndroidX, -6)
 	scrollButton:registerEventHandler(scrollButton.EVENT_BUTTON_CLICK, nil, _handleScrollButtonPressed )
 
@@ -183,11 +205,18 @@ function interface:_tileList_add_buttons( )
 	tlConfirm = element.gui:createButton( )
 	tlConfirm:setDim(12, 11)
 	tlConfirm:setPos(72+self._offsetAndroidX, 89)
+	tlConfirm:setNormalImage(element.resources.getPath("/level_editor_gui/ok.png"))
+	tlConfirm:setHoverImage(element.resources.getPath("/level_editor_gui/ok_h.png"))
+	tlConfirm:setPushedImage(element.resources.getPath("/level_editor_gui/ok_h.png"))
+	--back_h.png
 
 	tlCancel = element.gui:createButton( )
 	tlCancel:setDim(12, 11)
 	tlCancel:setPos(86+self._offsetAndroidX, 89)
-
+	tlCancel:setNormalImage(element.resources.getPath("/level_editor_gui/back.png"))
+	tlCancel:setHoverImage(element.resources.getPath("/level_editor_gui/back_h.png"))
+	tlCancel:setPushedImage(element.resources.getPath("/level_editor_gui/back_h.png"))
+	
 	listPanel:addChild(tlConfirm)
 	listPanel:addChild(tlCancel)
 
@@ -195,14 +224,23 @@ function interface:_tileList_add_buttons( )
 	tlMapTiles = element.gui:createButton( )
 	tlMapTiles:setDim(8, 10.5)
 	tlMapTiles:setPos(92+self._offsetAndroidX, 10)
+	tlMapTiles:setNormalImage(element.resources.getPath("/level_editor_gui/map_tiles.png"))
+	tlMapTiles:setHoverImage(element.resources.getPath("/level_editor_gui/map_tiles_h.png"))
+	tlMapTiles:setPushedImage(element.resources.getPath("/level_editor_gui/map_tiles_h.png"))
 
 	tlBuildingView = element.gui:createButton( )
 	tlBuildingView:setDim(8, 10.5)
 	tlBuildingView:setPos(92+self._offsetAndroidX, 22)	
+	tlBuildingView:setNormalImage(element.resources.getPath("/level_editor_gui/building_tiles.png"))
+	tlBuildingView:setHoverImage(element.resources.getPath("/level_editor_gui/building_tiles_h.png"))
+	tlBuildingView:setPushedImage(element.resources.getPath("/level_editor_gui/building_tiles_h.png"))
 
 	tlEntityView = element.gui:createButton( )
 	tlEntityView:setDim(8, 10.5)
 	tlEntityView:setPos(92 + self._offsetAndroidX, 34)
+	tlEntityView:setNormalImage(element.resources.getPath("/level_editor_gui/unit_tiles.png"))
+	tlEntityView:setHoverImage(element.resources.getPath("/level_editor_gui/unit_tiles_h.png"))
+	tlEntityView:setPushedImage(element.resources.getPath("/level_editor_gui/unit_tiles_h.png"))
 
 	listPanel:addChild(tlBuildingView)
 	listPanel:addChild(tlMapTiles)
@@ -336,11 +374,13 @@ function _handleListButtonPressed( )
 end
 
 function _handleColButtonPressed( )
+	lEditor:setEditMode("EDIT")
 	lEditor:setLevel(5)
 	lEditor:setIndex(2)
 end
 
 function _handleColMButtonPressed( )
+	lEditor:setEditMode("EDIT")
 	lEditor:setLevel(5)
 	lEditor:setIndex(1)
 end

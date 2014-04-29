@@ -543,10 +543,13 @@ function juliette:expansiveProcessing(_v)
 			end
 
 		else -- go and do yer regular stuff--]]
-
-			if v.tp == 1 or v.tp == 2 then -- scout or melee
-				self:_expansiveProcessingScouts(v)
-			else -- battle units
+			if v.isCommander == false then
+				if v.tp == 1 or v.tp == 2 then -- scout or melee
+					self:_expansiveProcessingScouts(v)
+				else -- battle units
+					self:_expansiveProcessingBattleUnits(v)
+				end
+			else
 				self:_expansiveProcessingBattleUnits(v)
 			end
 		--end
@@ -557,9 +560,13 @@ end
 
 function juliette:_hackForAIRouteGettingStuck(_v)
 	local v = _v
-	if v.tp == 1 or v.tp == 2 then -- scout or melee
-		self:_expansiveProcessingScouts(v)
-	else -- battle units
+	if v.isCommander == false then
+		if v.tp == 1 or v.tp == 2 then -- scout or melee
+			self:_expansiveProcessingScouts(v)
+		else -- battle units
+			self:_expansiveProcessingBattleUnits(v)
+		end
+	else
 		self:_expansiveProcessingBattleUnits(v)
 	end
 end

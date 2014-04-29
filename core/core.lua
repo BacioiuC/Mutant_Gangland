@@ -177,3 +177,29 @@ function core:setFullscreen(_bool)
 		MOAISim.exitFullscreenMode ()
 	end
 end
+
+
+--[[
+	Got it from here: http://stackoverflow.com/questions/15429236/how-to-check-if-a-module-exists-in-lua
+	by finnw
+]]
+
+function isModuleAvailable(name)
+	if package.loaded[name] then
+		return true
+	else
+		for _, searcher in ipairs(package.searchers or package.loaders) do
+			local loader = searcher(name)
+			if type(loader) == 'function' then
+				package.preload[name] = loader
+			return true
+			end
+		end
+		return false
+	end
+end
+
+function file_exists(name)
+	local f=io.open(name,"r")
+	if f~=nil then io.close(f) return true else return false end
+end

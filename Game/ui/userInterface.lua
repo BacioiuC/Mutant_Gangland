@@ -54,11 +54,11 @@ function interface:setup_cursors( )
 	alpha_pic:setPos(82, 0)
 	alpha_pic:setImage(element.resources.getPath("alpha_sign.png"))--]]
 	
-	--cursor_tex = image:newTexture("Game/media/cursor.png", 2, "cursor_tex")
+	cursor_tex = wimage:newTexture("media/cursor.png", 2, "cursor_tex")
 	Game.cursorX = 5
 	Game.cursorY = 5
 	if cursor_anim == nil then
-		cursor_tex_anim = anim:newDeck("Game/media/cursor_animation.png", 48, g_ActionPhase_UI_Layer)
+		cursor_tex_anim = wanim:newDeck("media/cursor_animation.png", 48, g_ActionPhase_UI_Layer)
 		cursor_anim = anim:newAnim(cursor_tex_anim, 8, Game.cursorX*32, Game.cursorY*32, 1)
 		anim:setSpeed(cursor_anim, 0.2)
 
@@ -67,7 +67,7 @@ function interface:setup_cursors( )
 		anim:setState(cursor_anim, "NORMAL_CURSOR")
 
 
-		target_tex_anim = anim:newDeck("Game/media/target_sprite.png", 48, g_ActionPhase_UI_Layer)
+		target_tex_anim = wanim:newDeck("media/target_sprite.png", 48, g_ActionPhase_UI_Layer)
 		target_anim = anim:newAnim(target_tex_anim, 4, 200, 200, 1)
 		anim:setSpeed(target_anim, 0.14)
 	end

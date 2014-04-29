@@ -1,14 +1,43 @@
 Game = {} -- MAIN CLASS
 
+Game.modInUse = "stream"
 
 local Grid = require ("Game.lib.jumper.grid")
 -- Calls the pathfinder class
 local Pathfinder = require ("Game.lib.jumper.pathfinder")
 
+
+
 -------------------------------------------
 --------- GAME FILES ----------------------
 --------------------------------------------
-require "Game.file_io"
+-- needed to allow images and animations to be loaded from /mods
+-- doing this to avoid having to mantain two separate versions of my /Chaurus framework from /core
+require "Game.wrapper.wImage"
+require "Game.wrapper.wAnim"
+require "Game.wrapper.wEffect"
+
+require "Game.include_list"
+
+--- WOOOHOO works!
+for i,v in ipairs(includeList) do
+
+	local prePath = "mods."..Game.modInUse.."."
+
+	if isModuleAvailable(""..prePath..""..v.."") == false then
+		prePath = "Game."
+		local string = ""..prePath..""..v..""
+		require("Game."..v.."")
+	else
+		print("GOING FOR MODS")
+
+		local string = ""..prePath..""..v..""
+		require(""..prePath..""..v.."")	
+	end
+
+end
+
+--[[require "Game.file_io"
 require "Game.camera"
 require "Game.map"
 require "Game.influence_map"
@@ -55,7 +84,7 @@ require "Game.info.information"
 
 require "Game.worldMap.worldmap"
 
-require "Game.player.player"
+require "Game.player.player"--]]
 
 
 
@@ -64,13 +93,7 @@ require "core.StateMachine"
 ---- PATHFINDER INCLUDES -------------
 ---------------------------------------
 
-
-
-
 require "gui/support/class"
-
-
-
 
 zKey = false
 
@@ -123,6 +146,7 @@ Game.persistantKey = false
 Game.optionControls.soundVolume = Game.masterVolume
 Game.optionControls.fullScreen = false
 
+
 --Game.freeCam = false
 function Game:initGui( )
 	
@@ -133,11 +157,11 @@ function Game:initGui( )
 	g:addToResourcePath(filesystem.pathJoin("resources", "layouts"))
 
 	layermgr.addLayer("gui", 99999, g:layer())
-	g:setTheme("basetheme.lua")
+	g:setTheme(THEME_NAME)
 	g:setCurrTextStyle("default")
 
 	--- Background STATIC IMAGE
-	bg_l3_tex = image:newTexture("Game/media/game_bg.png", g_BackgroundLayer, "bg_l3_tex")
+	bg_l3_tex = wimage:newTexture("media/game_bg.png", g_BackgroundLayer, "bg_l3_tex")
 	bg_l3 = image:newImage(bg_l3_tex, 0, 0)
 	image:_setScale(bg_l3, 2, 2)
 	--self.bg_l3_grid = mGrid:new(50, 50, 32, "Game/media/MGL_Clouds02.png", 1, "BLABLA", g_BackgroundLayer)
@@ -222,8 +246,12 @@ function Game:touchRight( )
 	--if zKey == false then
 	local _st = state[currentState]
 	if _st ~= "LevelEditor" then
-		MouseDown = true
-		camera:setJoystickVisible( )
+		--[[
+When right clicking, the map scrolling is stuck, and needs a left click, tho I'm not sure it's ment to be that way or not
+
+		--]]
+		--MouseDown = true
+		--camera:setJoystickVisible( )
 	end
 	--end
 	----print("X: "..math.floor( (Game.mouseX-map.offX+map.gridSize) /map.gridSize).." Y: ".. math.floor( (Game.mouseY-map.offY+map.gridSize) /map.gridSize).."")
@@ -248,7 +276,8 @@ function Game:keypressed( key )
 		-- 97, 100, 115, 119
 		if Game.cursorEnabled == true then
 			Game.key = key
-			if unit:getOnUi( ) == false then
+			--interface:_AUNavigation(key)
+			if interface:_getBuyMenuTweenStatus( ) == false then
 				if key == 97 then -- a
 					Game.cursorX = Game.cursorX - 1--map:updateScreen(32, 0)
 					Game.persistantKey = true
@@ -273,9 +302,37 @@ function Game:keypressed( key )
 					_handleApQuitMMButton( )
 				elseif key == 103 then
 					interface:_debugPrintElementsTable( )
+				elseif key == 104 then
+					--local flagBool = input:_getFlag( )
+					input:setFlagTo(false)
+				elseif key == 106 then
+					input:setFlagTo(true)
 				end
+
+
 			else
+				if key == 104 then
+					--local flagBool = input:_getFlag( )
+					input:setFlagTo(false)
+				elseif key == 106 then
+					input:setFlagTo(true)
+				end
 				interface:_keyboardNavigationThroughMenu(key)
+				if key == 9 then
+					print("BUT TAB?")
+					print("BUT TAB?")
+					print("BUT TAB?")
+					print("BUT TAB?")
+					print("BUT TAB?")
+					print("BUT TAB?")
+					interface:_IncIndex( )
+				end
+
+				if key == 32 then
+					g:injectMouseButtonDown(inputconstants.LEFT_MOUSE_BUTTON)
+					g:injectMouseButtonUp(inputconstants.LEFT_MOUSE_BUTTON)				
+				end
+				
 			end
 
 			--interface:_keyboardNavigationThroughMenu( )
@@ -313,6 +370,7 @@ function Game:loopPersistantKeyPressed( )
 	if Game.persistantKey == true then
 		if Game.worldTimer > Game.keyTimer + 0.5 then
 			local key = Game.key
+
 			if Game.cursorEnabled == true then
 				if key == 97 then -- a
 					Game.cursorX = Game.cursorX - 1--map:updateScreen(32, 0)
@@ -452,8 +510,8 @@ function Game:initPathfinding(__grid)
 	--grid = Grid(_grid) 
 	
 	--pather = Jumper(_grid, walkable, false)
-	grid = Grid(__grid)
-	_grid = Grid(__grid)
+	grid = Grid(__grid, false)
+	_grid = Grid(__grid, false)
 	pather = Pathfinder(grid, 'JPS', walkable)
 	pather:setMode("ORTHOGONAL")
 	
@@ -504,7 +562,6 @@ function Game:saveOptionsState( )
 	end
 	table.save(Game.optionControls, ""..pathToWrite.."config/"..saveFile.."" )
 	print("SAVED INFO FROM OPTIONS MENU")
-
 end
 
 function Game:loadOptionsState( )

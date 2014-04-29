@@ -168,7 +168,9 @@ function apLoop( )
 	
 
 	if _bGuiLoaded == false then
+		interface:_setupAlternateUiNavigation( )
 		interface:initAP( )
+		
 		interface:setup_cursors( )	
 
 		_bGuiLoaded = true
@@ -177,6 +179,8 @@ function apLoop( )
 
 		interface:updateInLoop( )
 		interface:updatePanels( )
+		interface:_handleUiNavigation( )
+		interface:_updateVirtualMouse( )
 	end
 
 	if _bGameLoaded == false then
@@ -191,13 +195,21 @@ function apLoop( )
 		player2.coins = player2.initialCoins
 		map:setOffset(32, 16)
 		map:_updateFogOfWar( )
+		
+		--map:_setCameraToCorrectPlayerPos( )
 		_bGameLoaded = true
 	else
 		camera:update( )
-
+		
 		map:update( )
 		building:update( )
 		unit:update( )	
+
+
+		if Game.cursorEnabled == true then
+			interface:_handleUiNavigation( )
+			interface:_updateVirtualMouse( )
+		end
 	end
 
 end

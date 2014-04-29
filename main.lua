@@ -1,3 +1,22 @@
+--[[
+-Health Icons
+We'll look into hear bars with stripes
+
+-Attack Animations (units take turns hitting each other)
+We'll look into how we can disable the player from intervering t during that
+
+-Occupy animation
+We just need an animation and we can put it in.
+
+-New Splash screen
+Thomas should design one.
+
+
+
+
+]]
+
+
 -- TODO: Rebuild Windows HOST USING latest MOAI-DEV BRANCH!
 -- MOAIEnvironment does not work on 1.4.0p
 -- TODO: SCREENSHAKE!!!!!!
@@ -15,9 +34,9 @@
 --
 
 --disabl any output
-function print( )
+--function print( )
  -- nothing :D
-end
+--end
 
 local scale = true
 
@@ -31,6 +50,8 @@ units_y = 360
 
 SCREEN_X_OFFSET = 0
 SCREEN_Y_OFFSET = 0
+
+THEME_NAME = "basetheme.lua"
 
 if  MOAIEnvironment.osBrand ~= "Android"  then
 	pathToWrite = ""
@@ -128,7 +149,7 @@ require "core.sound"
 require "Game.game" -- THE ACTUAL MAIN FILE! MAIN LUA is AREA 51, front for area 52 :D
 sound:init( )
 
-app_name = "Mutant Gangland ALPHA 1 UPDATE 5"
+app_name = "Mutant Gangland ALPHA 1 UPDATE 6"
 
 
 layermgr = require "layermgr"
@@ -188,6 +209,14 @@ CAM_GL = nil
 
 --mm_Heavy Fabric_0.ogg
 
+local tb, bool = Game:loadOptionsState( )
+if bool == true then
+
+	if tb.fullScreen == true then
+
+		core:setFullscreen(true)
+	end
+end
 --core:setFullscreen(true)
 --core:_debugSetCamera( )
 g = gui.GUI( resX, resY, vpx1, vpy1, vpx2, vpy2, units_x, units_y)
@@ -229,22 +258,59 @@ function OnScreenResize(width, height)
 	vpx2 = SCREEN_X_OFFSET + SCREEN_WIDTH
 	vpy2 = SCREEN_Y_OFFSET + SCREEN_HEIGHT
 
-	--if _resX < 700 and _resY < 700 then
-		--basetheme_small.lua
-		--g:setTheme("basetheme.lua")
 
-	--else
-	--	g:setTheme("basetheme.lua")
-	--	g:setCurrTextStyle("default")
-	--end
-
+	Game:dropUI(g, resources )
 	core:updateViewPort(vpx1, vpy1, vpx2, vpy2)
 	g:_updateGUILayer(width, height, vpx1, vpy1, vpx2, vpy2, units_x, units_y)
-	Game:dropUI(g, resources )
-	g:setTheme("basetheme.lua")
-	g:setCurrTextStyle("default")
+	
+	if _resX < 400 and _resY < 400 then
+		print("SMALL RES")
+
+		THEME_NAME = "basetheme_small.lua"
+		g:setTheme("basetheme_small.lua")
+		g:setCurrTextStyle("default")
+
+	else
+		print("BIG RES")
+
+		THEME_NAME = "basetheme.lua"
+		g:setTheme("basetheme.lua")
+		g:setCurrTextStyle("default")
+	end
+	--g:setTheme("basetheme.lua")
+	--g:setCurrTextStyle("default")
 	_bGuiLoaded = false
 	--g:shutdown()
+
+
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
+	print("THEME SHOULD BE: "..THEME_NAME.."")
 end
 
 MOAIGfxDevice.setListener(MOAIGfxDevice.EVENT_RESIZE, OnScreenResize )

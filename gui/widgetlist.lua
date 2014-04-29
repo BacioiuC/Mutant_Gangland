@@ -142,6 +142,7 @@ function WidgetListRow:setWidget(idx, widget)
 	end
 
 	if self._oneRowLower == true then
+		--[[print("ONE ROW TRUE: "..x.."")
 		print("ONE ROW TRUE: "..x.."")
 		print("ONE ROW TRUE: "..x.."")
 		print("ONE ROW TRUE: "..x.."")
@@ -164,10 +165,10 @@ function WidgetListRow:setWidget(idx, widget)
 		print("ONE ROW TRUE: "..x.."")
 		print("ONE ROW TRUE: "..x.."")
 		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
+		print("ONE ROW TRUE: "..x.."")--]]
 		widget:setPos(x, 0)
 	else
+		--[[print("ONE ROW FALSE: "..x.."")
 		print("ONE ROW FALSE: "..x.."")
 		print("ONE ROW FALSE: "..x.."")
 		print("ONE ROW FALSE: "..x.."")
@@ -182,8 +183,7 @@ function WidgetListRow:setWidget(idx, widget)
 		print("ONE ROW FALSE: "..x.."")
 		print("ONE ROW FALSE: "..x.."")
 		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
+		print("ONE ROW FALSE: "..x.."")--]]
 		widget:setPos(x, 0)
 	end
 	widget:setDim(self._colWidths[idx], self._height)
@@ -413,7 +413,7 @@ function _M.WidgetList:_displayRows()
 	local minRow, maxRow
 
 	minRow = math.min(#self._rows, self._scrollBar:getTopItem())
-	maxRow = math.min(#self._rows, self._scrollBar:getTopItem() + self._scrollBar:getPageSize() - 1)-1
+	maxRow = math.min(#self._rows, self._scrollBar:getTopItem() + self._scrollBar:getPageSize() - 1)
 
 	for i = minRow, maxRow do
 		self._rows[i]:show()
@@ -781,6 +781,10 @@ end
 function _M.WidgetList:setOwnedStyle(_rowIDX, _styleNormal, _styleSelected)
 	self._rows[_rowIDX]._styleNormal = _styleNormal
 	self._rows[_rowIDX]._styleSelected = _styleSelected
+end
+
+function _M.WidgetList:getNumRows( )
+	return #self._rows
 end
 
 return _M

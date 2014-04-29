@@ -1,5 +1,5 @@
 commander = { }
-commander[1] = { sound = "prima.ogg", name = "Mortel V", team = 1, mobility = 50, attackBonus = 40, defenseBonus = 100, incomeBonus = 50, critChance = 0.5, powerup = "Healing" }
+commander[1] = { sound = "prima.ogg", name = "Prima", team = 1, mobility = 50, attackBonus = 40, defenseBonus = 100, incomeBonus = 50, critChance = 0.5, powerup = "Healing" }
 commander[2] = { sound = "twinning.ogg", name = "Twinning", team = 1, mobility = 100, attackBonus = 40, defenseBonus = 40, incomeBonus = 0, critChance = 19, powerup = "Dmg"  }
 commander[3] = { sound = "killchip.ogg", name = "Killchip", team = 2, mobility = 150, attackBonus = 200, defenseBonus = 0, incomeBonus = 50, critChance = 10, powerup = "Healing" }
 commander[4] = { sound = "thunderbite.ogg", name = "Tunderbite", team = 2, mobility = 0, attackBonus = 40, defenseBonus = 150, incomeBonus = 50, critChance = 19, powerup = "Dmg"  }

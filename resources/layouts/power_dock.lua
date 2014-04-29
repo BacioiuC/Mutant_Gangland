@@ -2,12 +2,12 @@
 local data = {
 	dockPanel = {
 		widget = "image",
-		dim = { 16, 39 },
+		dim = { 35, 48 },
 		pos = { -100, 27 },
 		images = {
 			{
 
-				fileName = "../gui/action_phase/dock_panel.png"
+				fileName = "../gui/action_phase/background_for_buy.png"
 			},
 
 		}, -- end of images
@@ -37,19 +37,27 @@ local data = {
 				dim = { 6, 9 },
 				pos = { 8, 0.5 },
 			},
+
+			labelBonus = {
+				widget = "label",
+				dim = { 30, 6 },
+				pos = {3, 3},
+				text = "+ Commander Bonus",
+
+			},
 					
 			infoWidget = {
 				widget = "widget list",
-				pos = { 0.5, 12 },
-				dim = { 25 , 35 },
+				pos = { 3, 10 },
+				dim = { 26 , 32 },
 				selectionImage = "../gui/buy_menu/selection_image2.png",
 				--backgroundImage = "../gui/buy_menu/selection_image.png",
 				maxSelect = 1,
-				rowHeight = 6,
+				rowHeight = 7,
 				columns = {
-					{"", 4, "Image"},
-					{"", 5, "label"},
-					{"", 6, "label"},
+					{"", 5, "Image"},
+					{"", 7, "label"},
+					{"", 7, "label"},
 				},
 
 			}, -- end of info widget
@@ -61,3 +69,5 @@ local data = {
 } -- end of data
 
 return data
+
+

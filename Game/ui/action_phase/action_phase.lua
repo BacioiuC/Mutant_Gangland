@@ -27,10 +27,10 @@ function interface:init_ap_buttons( )
 	self._uVictory[6] = "Score: "
 
 	self._iconList = { }
-	self._iconList[1] = "buy_menu/stat/health.png"
-	self._iconList[2] = "buy_menu/stat/range.png"
-	self._iconList[3] = "buy_menu/stat/mobility.png"
-	self._iconList[4] = "buy_menu/stat/damage.png"
+	self._iconList[1] = "buy_menu/stat/shealth.png"
+	self._iconList[2] = "buy_menu/stat/srange.png"
+	self._iconList[3] = "buy_menu/stat/smobility.png"
+	self._iconList[4] = "buy_menu/stat/sdamage.png"
 	self._iconList[5] = "buy_menu/stat/cost.png"
 
 	nextStepText = {}
@@ -94,7 +94,11 @@ function interface:init_ap_buttons( )
 	end
 
 	self:_createConfirmationScreen(  )
+	--self:_loadup_cmd( )
+end
 
+function interface:_loadup_cmd( )
+	local roots, widgets, groups = element.gui:loadLayout(resources.getPath("cmd.lua"), "")
 end
 
 function interface:_getScale( )
@@ -103,6 +107,7 @@ end
 
 function interface:_prepare_victory_screen( )
 	local roots, widgets, groups = element.gui:loadLayout(resources.getPath("victory_screen.lua"), "")
+	--self:_addUiToDaddyTable(widgets)
 
 	if (nil ~= widgets.vicWindow) then
 		self._victoryPanel = widgets.vicWindow.window
@@ -164,6 +169,7 @@ end
 
 function interface:_createConfirmationScreen(  )
 	local roots, widgets, groups = element.gui:loadLayout(resources.getPath("confirmation_screen.lua"), "")
+	--self:_addUiToDaddyTable(widgets)
 	if (nil ~= widgets.bgFull) then
 		self._confirmationScreen = widgets.bgFull.window
 	else
@@ -261,7 +267,7 @@ end
 
 function interface:_prepare_power_dock( )
 	local roots, widgets, groups = element.gui:loadLayout(resources.getPath("power_dock.lua"), "")
-
+	--self:_addUiToDaddyTable(widgets)
 
 	if (nil ~= widgets.dockPanel) then
 	  self._dockPanel = widgets.dockPanel.window
@@ -270,6 +276,13 @@ function interface:_prepare_power_dock( )
 	  print("Dock PANEL REGISTERED")
 	else
 		print("ONE FAIL")
+	end
+
+	if (nil ~= widgets.labelBonus) then
+
+		self._bonusLabel = widgets.labelBonus.window
+	else
+		print("PHAIL LABEL BONUS")
 	end
 
 	if (nil ~= widgets.header) then
@@ -312,16 +325,19 @@ function interface:_prepare_power_dock( )
 	print("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 
 	--self._comPanel:addChild(self._dockPanel)
-
+	--self._apInfoWidget
 	self:_fillUnitStatWidget( )
+
+
 end
+
 
 function interface:_updateDock( )
 	
 	if self._showDock == true then
-		self._dockPanel:tweenPos(self._dockX, 59, 0.2)
+		self._dockPanel:tweenPos(self._dockX, 56, 0.2)
 	else
-		self._dockPanel:tweenPos(self._dockX_out, 59, 0.2)
+		self._dockPanel:tweenPos(self._dockX_out, 56, 0.2)
 	end
 
 	if self._bringUpConfirmBox == true then
@@ -358,22 +374,22 @@ function interface:_setDockState(_state, _unitID, _showAbility)
 
 	if Game.cursorEnabled == false then
 		if _mouseX > resX/2 then
-			self._dockX = 1
-			self._dockPanel:setPos(-100, 59)
+			self._dockX = -2
+			self._dockPanel:setPos(-100, 62)
 			self._dockX_out = - 100
 		else
-			self._dockPanel:setPos(100, 59)
-			self._dockX = 84
+			self._dockPanel:setPos(100, 62)
+			self._dockX = 69
 			self._dockX_out = 100
 		end
 	else
 		if ac > 256 then
-			self._dockX = 1
-			self._dockPanel:setPos(-100, 59)
+			self._dockX = 0
+			self._dockPanel:setPos(-100, 62)
 			self._dockX_out = - 100
 		else
-			self._dockPanel:setPos(100, 59)
-			self._dockX = 84
+			self._dockPanel:setPos(100, 62)
+			self._dockX = 65
 			self._dockX_out = 100
 		end
 	end
@@ -389,9 +405,9 @@ function interface:_setDockState(_state, _unitID, _showAbility)
 		end
 		local check = unit_type[v.faction][v.tp]
 		if _showAbility == true or _showAbility == nil then
-			self._abilityButton:setPos(0.5, 0.5)
+			self._abilityButton:setPos(2000, 2)
 			if check.secondAbility == true then
-				self._abilityButton2:setPos(8, 0.5)
+				self._abilityButton2:setPos(9, -20)
 				self._abilityButton2:setNormalImage(element.resources.getPath("action_phase/temp_icon_3.png"))
 			else
 				self._abilityButton2:setPos(9000.5, 0.5)
@@ -410,6 +426,7 @@ end
 function interface:_fillUnitStatWidget( )
 	--self._uVicData = { }
 	--self._uVicData[1] = { , }
+	self._bonusLabel:setTextStyle(textstyles.get( "commanderBonus" ))
 	local widgetList = self._apInfoWidget
 	for i = 1, 5 do
 		local row = widgetList:addRow( )
@@ -444,6 +461,9 @@ function interface:_populateUnitStatWidgets(_unitID)
 	for i = 1, 5 do
 		local row = widgetList:getRow(i)
 		if i <= 4 then
+			if math.even(i) == false then
+				row:setRowImage( element.resources.getPath("victory_screen/row.png") )
+			end
 			--row:getCell(1):setTextStyle(textstyles.get( "stats" ), 14)
 			--row:getCell(1):setText(self._uStatTable[i][1])
 			row:getCell(1):setImage(element.resources.getPath( ""..self._iconList[i]..""))
@@ -456,7 +476,7 @@ function interface:_populateUnitStatWidgets(_unitID)
 			if difInStat ~= 0 then
 				if uState[i] < uInState[i] then
 					row:getCell(3):setText("   "..difInStat.."")
-					row:getCell(3):setTextStyle(textstyles.get( "statsBad" ), 14)
+					row:getCell(3):setTextStyle(textstyles.get( "commanderBonus" ), 14)
 				else
 					row:getCell(3):setText("   +"..difInStat.."")
 					row:getCell(3):setTextStyle(textstyles.get( "stats" ), 14)				
@@ -464,6 +484,7 @@ function interface:_populateUnitStatWidgets(_unitID)
 			else
 				row:getCell(3):setText("")
 			end
+			row:setInteractable(false)
 		end
 	end
 end
@@ -495,6 +516,7 @@ end
 function interface:_ap_createCommanderPanel( )
 
 	local roots, widgets, groups = element.gui:loadLayout(resources.getPath("commander_panel.lua"), "cm")
+	--self:_addUiToDaddyTable(widgets)
 	-- register Commander Image, Com Name and Coin Label as self._controls of the interface
 	-- in order to change 'em'
 
@@ -1069,6 +1091,8 @@ function _handleZoomBttnPressed( )
 	end
 end
 
+
+
 function _handleZoomBttnMinPressed( )
 	if zoomIDX > 1 then 
 		zoomIDX = zoomIDX - 1
@@ -1078,7 +1102,7 @@ function _handleZoomBttnMinPressed( )
 end
 
 function _zoomRecordOldScale(_scale)
-	print("HAPPE-FREAKING-NING")
+	--print("HAPPE-FREAKING-NING")
 
 	Game.oldScale = _scale
 end
@@ -1221,7 +1245,7 @@ function _handleMutantAbilities2(_unitID)
 	local aura = unit:_returnAuraEffect( )
 	local v = unit:_returnTable()[_unitID]
 	if v.eff == nil then
-		v.eff = effect:new("AURA", v.x, v.y, aura, 10, v, true)
+		v.eff = effect:new("AURA", v.x, v.y, aura, 8, v, true)
 		v.damage = v.damage + 10
 		v.hp = v.hp / 2
 		v.displayHP = v.hp

@@ -67,9 +67,9 @@ function map:init( )
 	self._corner = {}
 
 	self._baseTable = {}
-	self._mainGrid = 1
-	self._buildingGrid = 2
-	self._collisionGridDebug = 3
+	self._mainGrid = 0
+	self._buildingGrid = 1
+	self._collisionGridDebug = 2
 
 	self._tileSize = 32
 
@@ -130,6 +130,30 @@ function map:getTileCost(_x, _y)
 	end	
 end
 
+function map:_setCameraToCorrectPlayerPos( )
+	-- get unit as anchor
+	--local v = unit:_getRandomUnitForPlayer(player1.team)
+
+	local unitTable = unit:_returnTable( )
+	local x = 4
+	local y = 4
+	if #unitTable > 0 then
+		print("THIS SHOULD HAVE HAPPENED")
+		print("THIS SHOULD HAVE HAPPENED")
+
+
+		local rnd = math.random(1, #unitTable) 
+		local v = unitTable[rnd]
+		x = v.act_x
+		y = v.act_y
+	else
+		x = 15
+		y = 2
+	end
+
+	map:setScreen(x, y)
+end
+
 function map:returnSize( )
 	return self._mapSizeX, self._mapSizeY
 end
@@ -144,7 +168,7 @@ function map:initAP (_mapToLoad)
 	mGrid:setPos(self._mainGrid, self._tileSize, self._tileSize)
 	mGrid:setPos(self._buildingGrid, self._tileSize, self._tileSize)
 	--map:_addCollisionInMiddle( )
-	mGrid:new(self._mapSizeX, self._mapSizeY, self._tileSize, "Game/media/grid_overlay.png", 3, nil, colGridLayer)
+	self._collisionGridDebug = mGrid:new(self._mapSizeX, self._mapSizeY, self._tileSize, "Game/media/grid_overlay.png", 3, nil, colGridLayer)
 	mGrid:setPos(self._collisionGridDebug, self._tileSize, self._tileSize)
 
 	if _mapToLoad ~= nil then
@@ -161,21 +185,21 @@ end
 
 
 function map:_addCollisionInMiddle( )
-	for i = 1, 40 do
+--[[for i = 1, 40 do
 		local _x = math.random( 4, 19 )
 		local _y = math.random( 4, 13 )
 		mGrid:updateTile(self._mainGrid, _x, _y, math.random(2,4)) -- debug path test
-	end
+	end--]]
 	--mGrid:updateTile(self._mainGrid, 3, 2, 2)
 
 end
 
 function map:_resetMap( )
-	for x = 1, self._mapSizeX do
+	--[[for x = 1, self._mapSizeX do
 		for y = 1, self._mapSizeY do
 			mGrid:updateTile(self._mainGrid, x, y, 1)
 		end
-	end
+	end--]]
 end
 
 
@@ -198,6 +222,7 @@ function map:update( )
 	if self._globalMapScroll == false then
 		----print("UNITS SHOULD MOVE")
 	end
+	--self:scroll()
 end
 
 
@@ -265,7 +290,7 @@ function map:updateScreen(_x, _y)
 
 	local leScale = interface:_getScale( )
 
-	if self._mapSizeX > 18 then
+	if self._mapSizeX > 14 then
 		if map.offX + _x > 32 then map.offX = 32 end
 		local maxR = self._rightOffsetMax[leScale].x
 		if map.offX + _x < -( self._mapSizeX * 32 - maxR) then map.offX = -( self._mapSizeX * 32 - maxR ) end
@@ -295,6 +320,25 @@ function map:setScreen(_x, _y)
 	if map.targetLocY > 158 then map.targetLocY = 158 end
 	local mayR = self._rightOffsetMax[leScale].y
 	if map.targetLocY < -( self._mapSizeY * 32 - mayR) then map.targetLocY = -( self._mapSizeY * 32 - mayR ) end	 
+end
+
+function map:setStartingPos(_x, _y)
+	map.targetLocX = map.offX - _x + resX/2.5 + self._scrollVarRes[1].x
+	map.targetLocY = map.offY - _y + resY/4 + self._scrollVarRes[1].y
+
+	local leScale = interface:_getScale( )
+	if map.targetLocX > 32 then map.targetLocX = 32 end
+	local maxR = self._rightOffsetMax[leScale].x
+	if map.targetLocX < -( self._mapSizeX * 32 - maxR) then map.targetLocX = -( self._mapSizeX * 32 - maxR ) end
+
+	if map.targetLocY > 158 then map.targetLocY = 158 end
+	local mayR = self._rightOffsetMax[leScale].y
+	if map.targetLocY < -( self._mapSizeY * 32 - mayR) then map.targetLocY = -( self._mapSizeY * 32 - mayR ) end	 
+
+
+	--map.offX = map.targetLocX
+	--map.offY = map.targetLocY
+	map:setOffset(map.targetLocX, map.targetLocY)
 end
 
 function map:scroll( )
@@ -470,10 +514,11 @@ end
 
 function map:destroyAll( )
 
-	mGrid:destroy(self._collisionGridDebug )
+	--[[mGrid:destroy(self._collisionGridDebug )
 	mGrid:destroy(self._buildingGrid)
-	mGrid:destroy(self._mainGrid)
+	mGrid:destroy(self._mainGrid)--]]
 	--mGrid:_debugDestroyAll( )
+	mGrid:_debugDestroyAll( )
 end
 
 function map:setGridSize(_sx, _sy, _tileSet)
@@ -490,13 +535,30 @@ function map:setGridSize(_sx, _sy, _tileSet)
 	--mGrid:destroy(self._buildingGrid)
 	--mGrid:destroy(self._mainGrid)
 	map:destroyAll( )
-	mGrid:new(self._mapSizeX, self._mapSizeY, 32, _tileSet, 1)
+	self._mainGrid = nil
+	self._buildingGrid = nil
+	self._collisionGridDebug = nil
+
+	self._mainGrid = mGrid:new(self._mapSizeX, self._mapSizeY, 32, _tileSet, 1)
+	--self._deckIndex = self._mainGrid
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
+	print("SELF MAINGRID = "..self._mainGrid.."")
 	mGrid:setPos(self._mainGrid, 0, 0)
 
-	mGrid:new(self._mapSizeX, self._mapSizeY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
+	self._buildingGrid = mGrid:new(self._mapSizeX, self._mapSizeY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
 	mGrid:setPos(self._buildingGrid, 0, 0)
 
-	mGrid:new(self._mapSizeX, self._mapSizeY, self._tileSize, "Game/media/grid_overlay.png", 3, nil, colGridLayer)
+	self._collisionGridDebug = mGrid:new(self._mapSizeX, self._mapSizeY, self._tileSize, "Game/media/grid_overlay.png", 3, nil, colGridLayer)
 	mGrid:setPos(self._collisionGridDebug, 0, 0)
 	map:updateScreen(1, 1)
 
@@ -531,20 +593,11 @@ function map:loadAndReset(_file)
 		tileSet = ""..pathCat.map.."/".._file..".png"
 	else
 		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
-		print("EGHH EGH EGH EGH WRONG!!!!!")
+
 	end
 	map:setGridSize(#tb, #tb[#tb], tileSet)
 
-	map:setLevel(1)
+	map:setLevel(self._mainGrid)
 	for x = 1, #tb do
 		for y = 1, #tb[x] do
 			map:updateTile(x, y, tb[x][y])

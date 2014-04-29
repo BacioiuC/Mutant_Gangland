@@ -44,10 +44,12 @@ function _handleQuitPressed(   )
 end
 
 function _handleFullScrPressed( )
+	Game.optionControls.fullScreen = true
 	core:setFullscreen(true)
 end
 
 function _handleFullScrOffPressed( )
+	Game.optionControls.fullScreen = false
 	core:setFullscreen(false)
 end
 

@@ -53,6 +53,13 @@ data = {
 			size = 14,
 			color = {0.204, 0.447, 0.784}
 		},
+
+		commanderBonus = {
+			font = "atari full.ttf",
+			size = 14,
+			color = {1, 0.612, 0},	
+
+		},
 	},
 	label = {
 

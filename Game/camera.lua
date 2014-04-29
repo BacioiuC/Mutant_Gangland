@@ -14,8 +14,8 @@ Game.pressedY = Game.mouseY
 
 function camera:init( )
   -- load Joystick pos
-  joyStick_base_tex = image:newTexture("Game/media/touchPressed_base.png",2,"JOySTICK_BASE")
-  joyStick_top_tex = image:newTexture("Game/media/touchPressed_joystick.png",2,"JOYSTICK_TOP")
+  joyStick_base_tex = wimage:newTexture("Game/media/touchPressed_base.png",2,"JOySTICK_BASE")
+  joyStick_top_tex = wimage:newTexture("Game/media/touchPressed_joystick.png",2,"JOYSTICK_TOP")
 
   joyStick_base = image:newImage(joyStick_base_tex, Game.mouseX,Game.mouseY)
   joyStick_top = image:newImage(joyStick_top_tex, Game.mouseX,Game.mouseY)
@@ -38,30 +38,33 @@ function camera:getScroll( )
 end
 
 function camera:update( )
+    if MouseDown == true and self._scrollMap == true then
 
-  if MouseDown == true and self._scrollMap == true then
+      local difMouseX = -math.floor((Game.pressedX - Game.mouseX))
+      local difMouseY = -math.floor((Game.pressedY - Game.mouseY))
+     
+      image:updateImage(joyStick_base, Game.pressedX, Game.pressedY)
+      image:updateImage(joyStick_top, Game.mouseX, Game.mouseY)
+    --  if Game.currentState == 5 then
+      local st = state[currentState]
+      if st == "LevelEditor" then
+        --print("LOOPIN'")
+        lEditor:updateScreen(difMouseX,difMouseY)
+      elseif st == "Levels" then
 
-    local difMouseX = -math.floor((Game.pressedX - Game.mouseX))
-    local difMouseY = -math.floor((Game.pressedY - Game.mouseY))
-   
-    image:updateImage(joyStick_base, Game.pressedX, Game.pressedY)
-    image:updateImage(joyStick_top, Game.mouseX, Game.mouseY)
-  --  if Game.currentState == 5 then
-    local st = state[currentState]
-    if st == "LevelEditor" then
-      --print("LOOPIN'")
-      lEditor:updateScreen(difMouseX,difMouseY)
-    elseif st == "Levels" then
-      worldMap:updateScreen(difMouseX, math.floor(difMouseY))
-    else
-       map:updateScreen(math.floor(difMouseX),math.floor(difMouseY))
+        worldMap:updateScreen(difMouseX, math.floor(difMouseY))
+      else
+        if unit:_returnTypeOfPlayer( ) == "Human" then
+         map:updateScreen(math.floor(difMouseX),math.floor(difMouseY))
+        end
+      end
+     -- elseif Game.currentState == 3 then
+      --  isoMap:updateScreen(difMouseX,difMouseY)
+      --end
+
     end
-   -- elseif Game.currentState == 3 then
-    --  isoMap:updateScreen(difMouseX,difMouseY)
-    --end
-
-  end
-
+ -- end
+  
   if difMouseX ~= nil then
     self._offX = math.floor(difMouseX)
     self._offY = math.floor(difMouseY)
@@ -69,6 +72,7 @@ function camera:update( )
     self._offX = self._offX
     self._offY = self._offY
   end
+
 
   Game.pressedX = Game.mouseX
   Game.pressedY = Game.mouseY

@@ -406,6 +406,7 @@ function _M.GUI:injectKeyUp(key)
 end
 
 function _M.GUI:injectMouseMove(newX, newY)
+	--print("MOUSE MOVE sir! Mouse move!")
 	self._prevMouseX = self._currMouseX
 	self._prevMouseY = self._currMouseY
 	self._currMouseX = newX
@@ -427,6 +428,10 @@ function _M.GUI:injectMouseMove(newX, newY)
 	return result
 end
 
+function _M.GUI:getMouseCoords( )
+	return self._currMouseX, self._currMouseY
+end
+
 function _M.GUI:injectMouseButtonDown(button)
 	self._mouseButtonsDown[button] = self._over
 
@@ -438,8 +443,10 @@ function _M.GUI:injectMouseButtonDown(button)
 		result = self._focus:_handleMouseDown(event)
 	end
 
+	print("GOING DOWN")
 	return result
 end
+
 
 function _M.GUI:injectMouseButtonUp(button)
 	local result = false
@@ -453,13 +460,13 @@ function _M.GUI:injectMouseButtonUp(button)
 	end
 
 	self._mouseButtonsDown[button] = nil
-
+	print("GOIN UP")
 	return result
 end
 
 function _M.GUI:injectTouch(eventType, idx, x, y, tapCount)
 	local newTouch = {}
-	print("HAPPE-FUCKING-NING")
+	--print("HAPPE-FUCKING-NING")
 	newTouch.type = eventType
 	newTouch.x = x
 	newTouch.y = y
@@ -651,8 +658,8 @@ function _M.GUI:setTheme(fileName)
 
 	fileName = resources.getPath(fileName, RESOURCE_GROUP)
 	if (nil == fileName) then
-		print("CAUSE FOR RETURN?")
-
+	--	print("CAUSE FOR RETURN?")
+	--	print("CAUSE FOR RETURN?")
 		return
 	end
 
@@ -665,7 +672,7 @@ function _M.GUI:setTheme(fileName)
 	self._currTheme = fileName
 	self._factory:setTheme(t)
 
-	print("CALLING ALL CARS, CALLING ALL CARS! SUCKIT JEFF BROADY!")
+	
 end
 
 function _M.GUI:setCurrTextStyle(name)
@@ -733,10 +740,10 @@ function _M.GUI:_updateGUILayer(width, height, w1, h1, w2, h2, ux, uy)
 	self._viewport:setScale(width, height)
 
 
-	print("HAPPENED")
-	print("HAPPENED")
-	print("HAPPENED")
-	print("HAPPENED")
+--	print("HAPPENED")
+--	print("HAPPENED")
+--	print("HAPPENED")
+--	print("HAPPENED")
 end
 
 function _M.GUI:getMouseX( )
@@ -744,12 +751,12 @@ function _M.GUI:getMouseX( )
 end
 
 function _M.GUI:init(width, height, w1, h1, w2, h2, ux, uy)
-	print("INITEEEEDDDDDDDD")
-	print("INITEEEEDDDDDDDD")
-	print("INITEEEEDDDDDDDD")
-	print("INITEEEEDDDDDDDD")
-	print("INITEEEEDDDDDDDD")
-	print("INITEEEEDDDDDDDD")
+	--print("INITEEEEDDDDDDDD")
+	--print("INITEEEEDDDDDDDD")
+	----print("INITEEEEDDDDDDDD")
+	--print("INITEEEEDDDDDDDD")
+	--print("INITEEEEDDDDDDDD")
+	--print("INITEEEEDDDDDDDD")
 	self._width = width
 	self._height = height
 

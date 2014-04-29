@@ -21,22 +21,27 @@ function lEditor:init( )
 	self._aidGrid = 4
 	self._collisionGrid = 5
 
-	self._deckIndex = 1
+	self._deckIndex = self._mainGrid
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/tileset_ground.png", 2)
+	self._mainGrid = mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/tileset_ground.png", 2)
 	mGrid:setPos(self._mainGrid, 32, 32)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
+	self._buildingGrid = mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
 	mGrid:setPos(self._buildingGrid, 32, 32)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_entity_tiles.png", 11)
+	self._entityGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_entity_tiles.png", 11)
 	mGrid:setPos(self._entityGrid, 64, 128)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/grid_overlay.png", 1)
+	self._aidGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/grid_overlay.png", 1)
 	mGrid:setPos(self._aidGrid, 96, 256)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/collision_sprite.png", 1)
+	self._collisionGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/collision_sprite.png", 1)
 	mGrid:setPos(self._collisionGrid, 32, 32)
+
+	print(" ========================================================== ")
+	print(" ========================================================== ")
+	print(" =========== CREATING LD GRIDS ============================= ")
+	print(" Main grid: "..self._mainGrid.." Building Grid: "..self._buildingGrid.." Entity Grid: "..self._entityGrid.." \n  aid Grid: "..self._aidGrid.. " Collision Grid: "..self._collisionGrid.."")
 
 	self._EditingLevel = 1
 
@@ -52,7 +57,9 @@ function lEditor:init( )
 	]]
 	self._editMode = "EDIT"
 
-
+	if Game.lastState == 5 then
+		self:loadAndReset("temp_test_map022701227")
+	end
 
 
 end
@@ -85,7 +92,7 @@ function lEditor:update( )
 	local tbLen = mGrid:returnNrGrids( )
 
 	for i = 1, tbLen do 
-		mGrid:setPos(i, lEditor.offX, lEditor.offY)
+		mGrid:setPos2(i, lEditor.offX, lEditor.offY)
 	end
 	mGrid:setPos(self._aidGrid, 0, 0)
 
@@ -204,25 +211,26 @@ function lEditor:setGridSize(_sx, _sy)
 	self._maxScrollX = -(self._gridX * 32 - 512)
 	self._maxScrollY = -(self._gridY * 32 - 256)
 	
-	mGrid:destroy(self._collisionGrid)
+	--[[mGrid:destroy(self._collisionGrid)
 	mGrid:destroy(self._aidGrid)
 	mGrid:destroy(self._entityGrid)
 	mGrid:destroy(self._buildingGrid)
-	mGrid:destroy(self._mainGrid)
+	mGrid:destroy(self._mainGrid)--]]
+	mGrid:_debugDestroyAll( )
 	
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/tileset_ground.png", 2)
+	self._mainGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/tileset_ground.png", 2)
 	mGrid:setPos(self._mainGrid, 32, 32)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
+	self._buildingGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_building_tiles.png", 9)
 	mGrid:setPos(self._buildingGrid, 32, 32)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_entity_tiles.png", 11)
+	self._entityGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/editor_entity_tiles.png", 11)
 	mGrid:setPos(self._entityGrid, 32, 32)
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/grid_overlay.png", 1)
+	self._aidGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/grid_overlay.png", 1)
 	mGrid:setPos(self._aidGrid, 32,32)	
 
-	mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/collision_sprite.png", 1)
+	self._collisionGrid=mGrid:new(self._gridX, self._gridY, 32, "Game/LevelEditor/collision_sprite.png", 1)
 	mGrid:setPos(self._collisionGrid, 32, 32)
 
 	lEditor:updateScreen(1, 1)

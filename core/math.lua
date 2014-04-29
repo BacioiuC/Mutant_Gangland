@@ -36,7 +36,7 @@ function performWithDelay (delay, func, repeats, ...)
 
 function math.aprox(value1, value2, range)
   local bool = false
-  if value1 - range <= value2 or value1 + range >= value2 then
+  if value1 - range <= value2 and value1 + range >= value2 then
     bool = true
   end
 

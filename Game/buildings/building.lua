@@ -6,21 +6,21 @@ function building:init(_mapFile)
 	self._incomePlayers = { p1 = 0, p2 = 0 }
 
 
-	self._bldTex = image:newTexture("Game/media/bld_hq.png", 1, "bld_hq")
-	self._bldTex2 = image:newTexture("Game/media/bld_hq_t2.png", 1, "bld_hq_2")
+	self._bldTex = wimage:newTexture("media/bld_hq.png", 1, "bld_hq")
+	self._bldTex2 = wimage:newTexture("media/bld_hq_t2.png", 1, "bld_hq_2")
 
-	self._bldHqTex = image:newDeckTexture("Game/media/hq_png.png", 1, "HQ_TEX", 32, "NOT NILL")
-	self._bldTownTex = anim:newDeck("Game/media/tileset_town.png", 48, 1 )
---image:newDeckTexture("Game/media/towns_png.png", 1, "town_tex", 32, "NOT NILL")
+	self._bldHqTex = wimage:newDeckTexture("media/hq_png.png", 1, "HQ_TEX", 32, "NOT NILL")
+	self._bldTownTex = wanim:newDeck("media/tileset_town.png", 48, 1 )
+--image:newDeckTexture("media/towns_png.png", 1, "town_tex", 32, "NOT NILL")
 
-	self._hqNeutral = anim:newDeck("Game/media/tileset_building.png", 48, 1 )
-	self._hqBlue = anim:newDeck("Game/media/player1_hq.png", 32, 1 )
-	self._hqRed = anim:newDeck("Game/media/player2_hq.png", 32, 1 )
-	self._roof = anim:newDeck("Game/media/tileset_building_roofs.png", 64, 5)
-	self._roofTown = anim:newDeck("Game/media/tileset_town_roofs.png", 64, 5)
+	self._hqNeutral = wanim:newDeck("media/tileset_building.png", 48, 1 )
+	self._hqBlue = wanim:newDeck("media/player1_hq.png", 32, 1 )
+	self._hqRed = wanim:newDeck("media/player2_hq.png", 32, 1 )
+	self._roof = wanim:newDeck("media/tileset_building_roofs.png", 64, 5)
+	self._roofTown = wanim:newDeck("media/tileset_town_roofs.png", 64, 5)
 
 
-	self._incomGenAnimation = anim:newDeck("Game/media/incom_gen_anim.png", 64, 6)
+	self._incomGenAnimation = wanim:newDeck("media/incom_gen_anim.png", 64, 6)
 
 	self._selectedBuilding = {}
 	self._selectedColor = { r = 240, g = 15, b = 240, a = 1 }
@@ -86,12 +86,12 @@ function building:init(_mapFile)
 	self._capturedTeam[2] = "BUILDING_P2_CAPTURE"
 
 	self._captureAnimTown = { }
-	self._captureAnimTown[1] = anim:newDeck("Game/media/town_captured_team1.png", 48, 6 )
-	self._captureAnimTown[2] = anim:newDeck("Game/media/town_captured_team2.png", 48, 6 )
+	self._captureAnimTown[1] = wanim:newDeck("media/town_captured_team1.png", 48, 6 )
+	self._captureAnimTown[2] = wanim:newDeck("media/town_captured_team2.png", 48, 6 )
 
 	self._captureAnimFactory = { }
-	self._captureAnimFactory[1] = anim:newDeck("Game/media/hq_captured_team1.png", 48, 6 )
-	self._captureAnimFactory[2] = anim:newDeck("Game/media/hq_captured_team2.png", 48, 6 )
+	self._captureAnimFactory[1] = wanim:newDeck("media/hq_captured_team1.png", 48, 6 )
+	self._captureAnimFactory[2] = wanim:newDeck("media/hq_captured_team2.png", 48, 6 )
 
 	building:_addDebugBuildings(_mapFile)
 end
@@ -146,13 +146,13 @@ function building:_generateIncome(_turn)
 			if unit:_returnTurn( ) == 1 and v.team == 2 then 
 				player2.coins = player2.coins + v.gold + math.floor( (player2.incomeBonus / 100) )
 				self._incomePlayers.p2 = self._incomePlayers.p2 + v.gold + math.floor( (player2.incomeBonus / 100) )
-				local cash = effect:new("MONEY", v.x, v.y-1, self._incomGenAnimation, 12)
+				local cash = weffect:new("MONEY", v.x, v.y-1, self._incomGenAnimation, 12)
 				effect:setSpeed(cash, 0.07)
 				counter = counter + 1
 			elseif unit:_returnTurn( ) == 2 and v.team == 1 then
 				player1.coins = player1.coins + v.gold + math.floor( (player1.incomeBonus / 100) )
 				self._incomePlayers.p1 = v.gold + self._incomePlayers.p1 + math.floor( (player1.incomeBonus / 100) )
-				local cash = effect:new("MONEY", v.x, v.y-1, self._incomGenAnimation, 12 )
+				local cash = weffect:new("MONEY", v.x, v.y-1, self._incomGenAnimation, 12 )
 				effect:setSpeed(cash, 0.07)
 				counter = counter + 1
 
@@ -310,6 +310,7 @@ function building:selectBuilding(_x, _y)
 
 			if v ~= nil and v.team == unit:_returnTurn( )  and v.canProduce and v._type == 1 then
 				self:_addSelected(_building)
+				--g:injectMouseMove(0, 0)
 				interface:setBuyMenu(true, v)
 				interface:_update_buymenu_unitList( )
 				--------------------------------

@@ -40,7 +40,7 @@ require "gui/support/class"
 local awindow = require "gui/awindow"
 local awidgetevent = require "gui/awidgetevent"
 
-local CURSOR = ":"
+local CURSOR = ">"
 
 local K_BACKSPACE = 8
 local K_ENTER = 13

@@ -28,6 +28,11 @@ function unit:_addSelected(_id)
 	
 end
 
+function unit:_getRandomUnitForPlayer(_turn)
+	local rUnit = self:_getRandomUnitOfTeam(_turn)
+	return rUnit
+end
+
 function unit:_removeSelected(_id)
 	local v = self._selectedUnits[_id]
 	local _unit = self._unitTable[v]
@@ -715,7 +720,7 @@ function unit:_addPathRange(_id, _otherUnit)
 										-- calculate DMG
 										local dmg = self:_calculateAttack(v, _unn)
 										local scaleFactor = 1 - ( (100 - ( (100 * dmg) / _unn.initital_hp ) ) / 100 )
-										image:_setScale(v.hb_b, scaleFactor, 1)
+										--image:_setScale(v.hb_b, scaleFactor, 1)
 										local hTemp = {
 											id = _unitInRangeAtPos,
 											hp = _unn.hp,
@@ -725,7 +730,7 @@ function unit:_addPathRange(_id, _otherUnit)
 										--	_unn.hp = 0.31
 										--end
 										table.insert(self._inRangeUnitHpTable, hTemp )
-										anim:setState(_unn.hb_c, "HB_FLASH")
+										--anim:setState(_unn.hb_c, "HB_FLASH")
 									end
 								end
 								--anim:addToPool(temp.img)
@@ -753,6 +758,7 @@ function unit:_addPathRange(_id, _otherUnit)
 
 	local timerEnd = Game.worldTimer
 	local timeTaken = timerStart - timerEnd
+	--[[print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
@@ -794,8 +800,7 @@ function unit:_addPathRange(_id, _otherUnit)
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
 	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
-	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
-	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")
+	print("TIME TO DO THAT SHIT IS: "..timeTaken.."")--]]
 end
 
 function unit:_returnRangeTable( )
@@ -1002,7 +1007,7 @@ function unit:_removeRange( )
 			else
 				_unn.displayHP = v.hp
 			end
-			anim:setState(_unn.hb_c, "HB_BG")
+			--anim:setState(_unn.hb_c, "HB_BG")
 		end
 	end
 
@@ -1213,10 +1218,15 @@ function unit:g_moveTowardsTarget(_unit)
 					_rangeMax = v.length
 				end--]]
 
-				if v.x > _x then
-					anim:setState(v.img, self._animStates[v.faction][v.tp].left)
-				elseif v.x < _x then
-					anim:setState(v.img, self._animStates[v.faction][v.tp].idle)
+				if v.isCommander == true then
+					anim:setState(v.img, self._animStates[3][v.tp].idle )
+
+				else
+					if v.x > _x then
+						anim:setState(v.img, self._animStates[v.faction][v.tp].left)
+					elseif v.x < _x then
+						anim:setState(v.img, self._animStates[v.faction][v.tp].idle)
+					end
 				end
 				--[[elseif v.y > _y then
 					anim:setState(v.img, ""..self._animString[v.faction].."MOVE_UP")

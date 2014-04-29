@@ -8,44 +8,53 @@ TO DO: FIX MULTIPLE UNIT ATTACKSSSS!! FFS, FIX IT DAMN IT
 ]]
 
 function unit:init(_mapFile)
+	self._turn = 1 
 ---------------------------------------
 ------ TABLES -------------------------
 ---------------------------------------
 	self._teamTexture = { }
 	self._teamTexture[1] = { } -- textures for team one
 	self._teamTexture[1][1] = { } -- textures for team one, mutants 1
-	self._teamTexture[1][1][1] = anim:newDeck("Game/media/units/team/spottah.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][1][2] = anim:newDeck("Game/media/units/team/panza_spottah.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][1][3] = anim:newDeck("Game/media/units/team/attacka.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][1][4] = anim:newDeck("Game/media/units/team/rockit.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][1][5] = anim:newDeck("Game/media/units/team/tank.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][1][1] = wanim:newDeck("media/units/team/spottah.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][1][2] = wanim:newDeck("media/units/team/panza_spottah.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][1][3] = wanim:newDeck("media/units/team/attacka.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][1][4] = wanim:newDeck("media/units/team/rockit.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][1][5] = wanim:newDeck("media/units/team/tank.png", 32, g_ActionPhaseLayer)
 
 	self._teamTexture[1][2] = { } -- textures for team one, robots 1
-	self._teamTexture[1][2][1] = anim:newDeck("Game/media/units/team/scout_robo.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][2][2] = anim:newDeck("Game/media/units/team/scout_robo2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][2][3] = anim:newDeck("Game/media/units/team/punchy2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][2][4] = anim:newDeck("Game/media/units/team/robo_rokkit2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[1][2][5] = anim:newDeck("Game/media/units/team/mecha_robo2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][2][1] = wanim:newDeck("media/units/team/scout_robo.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][2][2] = wanim:newDeck("media/units/team/scout_robo2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][2][3] = wanim:newDeck("media/units/team/punchy2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][2][4] = wanim:newDeck("media/units/team/robo_rokkit2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[1][2][5] = wanim:newDeck("media/units/team/mecha_robo2.png", 32, g_ActionPhaseLayer)
 
 	self._teamTexture[2] = { } -- textures for team one
 	self._teamTexture[2][1] = { } -- textures for team one, mutants 1
-	self._teamTexture[2][1][1] = anim:newDeck("Game/media/units/team/scout_robo_t2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][1][2] = anim:newDeck("Game/media/units/team/scout_robo2_t2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][1][3] = anim:newDeck("Game/media/units/team/punchy.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][1][4] = anim:newDeck("Game/media/units/team/robo_rokkit.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][1][5] = anim:newDeck("Game/media/units/team/mecha_robo.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][1][1] = wanim:newDeck("media/units/team/scout_robo_t2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][1][2] = wanim:newDeck("media/units/team/scout_robo2_t2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][1][3] = wanim:newDeck("media/units/team/punchy.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][1][4] = wanim:newDeck("media/units/team/robo_rokkit.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][1][5] = wanim:newDeck("media/units/team/mecha_robo.png", 32, g_ActionPhaseLayer)
 
 	self._teamTexture[2][2] = { } -- textures for team one, robots 1
-	self._teamTexture[2][2][1] = anim:newDeck("Game/media/units/team/spottah2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][2][2] = anim:newDeck("Game/media/units/team/panza_spottah2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][2][3] = anim:newDeck("Game/media/units/team/attacka2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][2][4] = anim:newDeck("Game/media/units/team/rockit2.png", 32, g_ActionPhaseLayer)
-	self._teamTexture[2][2][5] = anim:newDeck("Game/media/units/team/tank2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][2][1] = wanim:newDeck("media/units/team/spottah2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][2][2] = wanim:newDeck("media/units/team/panza_spottah2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][2][3] = wanim:newDeck("media/units/team/attacka2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][2][4] = wanim:newDeck("media/units/team/rockit2.png", 32, g_ActionPhaseLayer)
+	self._teamTexture[2][2][5] = wanim:newDeck("media/units/team/tank2.png", 32, g_ActionPhaseLayer)
 
+	self._commanderTexture = { }
+	self._commanderTexture[1] = { }
+	self._commanderTexture[1][1] = wanim:newDeck("media/units/team/gangbosses.png", 48, g_ActionPhaseLayer)
+
+	self._commanderTexture[2] = { }
+	self._commanderTexture[2][1] = wanim:newDeck("media/units/team/gangbosses.png", 48, g_ActionPhaseLayer)	
 
 	self._unitTable = {}
 	self._compUnits = {} -- used to store and handle NPC's
 	self._plUnits = {} -- used to store and handle Player Units
+
+
 
 	self._selectedUnits = {}
 	self._selectedColor = {}
@@ -100,30 +109,30 @@ function unit:init(_mapFile)
 ---------------------------------------
 ------ TEXTURES -----------------------
 ---------------------------------------
-	self._teamTex[1] = anim:newDeck("Game/media/units/bomb_unit_1.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("Game/media/team_1_units.png", 1, "un_tex", 32, "NotNill")
-	self._teamTex[2] = anim:newDeck("Game/media/units/chainsaw_unit_1.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("Game/media/team_2_units.png", 1, "un_tex_2", 32, "NotNill")
-	self._teamTex[3] = anim:newDeck("Game/media/units/skull_unit_1.png", 32, g_ActionPhaseLayer)
-	self._teamTex[4] = anim:newDeck("Game/media/units/rocket_unit_1.png", 32, g_ActionPhaseLayer)
-	self._teamTex[5] = anim:newDeck("Game/media/units/tank_unit_1.png", 32, g_ActionPhaseLayer)
+	self._teamTex[1] = wanim:newDeck("media/units/bomb_unit_1.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("media/team_1_units.png", 1, "un_tex", 32, "NotNill")
+	self._teamTex[2] = wanim:newDeck("media/units/chainsaw_unit_1.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("media/team_2_units.png", 1, "un_tex_2", 32, "NotNill")
+	self._teamTex[3] = wanim:newDeck("media/units/skull_unit_1.png", 32, g_ActionPhaseLayer)
+	self._teamTex[4] = wanim:newDeck("media/units/rocket_unit_1.png", 32, g_ActionPhaseLayer)
+	self._teamTex[5] = wanim:newDeck("media/units/tank_unit_1.png", 32, g_ActionPhaseLayer)
 
-	self._teamTex[6] = anim:newDeck("Game/media/units/bomb_unit_2.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("Game/media/team_1_units.png", 1, "un_tex", 32, "NotNill")
-	self._teamTex[7] = anim:newDeck("Game/media/units/chainsaw_unit_2.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("Game/media/team_2_units.png", 1, "un_tex_2", 32, "NotNill")
-	self._teamTex[8] = anim:newDeck("Game/media/units/skull_unit_2.png", 32, g_ActionPhaseLayer)
-	self._teamTex[9] = anim:newDeck("Game/media/units/rocket_unit_2.png", 32, g_ActionPhaseLayer)
-	self._teamTex[10] = anim:newDeck("Game/media/units/mech_unit_2.png", 32, g_ActionPhaseLayer)
+	self._teamTex[6] = wanim:newDeck("media/units/bomb_unit_2.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("media/team_1_units.png", 1, "un_tex", 32, "NotNill")
+	self._teamTex[7] = wanim:newDeck("media/units/chainsaw_unit_2.png", 32, g_ActionPhaseLayer)--image:newDeckTexture("media/team_2_units.png", 1, "un_tex_2", 32, "NotNill")
+	self._teamTex[8] = wanim:newDeck("media/units/skull_unit_2.png", 32, g_ActionPhaseLayer)
+	self._teamTex[9] = wanim:newDeck("media/units/rocket_unit_2.png", 32, g_ActionPhaseLayer)
+	self._teamTex[10] = wanim:newDeck("media/units/mech_unit_2.png", 32, g_ActionPhaseLayer)
 
-	--self._damageAnim_Tex = anim:newDeck("Game/media/damage_anim.png", 32, g_ActionPhase_UI_Layer)
+	--self._damageAnim_Tex = wanim:newDeck("media/damage_anim.png", 32, g_ActionPhase_UI_Layer)
 	--damage_anim = anim:newAnim(self._damageAnim_Tex, 6, -500, 5000, 1)
 	--ephraim_anim_set -- ephraim_anim_set2
 
 
-	self._movementRange_tex = anim:newDeck("Game/media/_range.png", 32, g_RangeLayer) --image:newTexture("Game/media/_range.png", g_RangeLayer, "range_tex")
-	self._mvRangeBad_tex = anim:newDeck("Game/media/_range_bad.png", 32, g_RangeLayer)--image:newTexture("Game/media/_range_bad.png", g_RangeLayer, "range_bad_tex")
-	self._path_tex = anim:newDeck("Game/media/_path.png", 32, g_GroundLayer)--image:newDeckTexture("Game/media/_path.png", g_RangeLayer, "path_tex", 32, "NotNill")
+	self._movementRange_tex = wanim:newDeck("media/_range.png", 32, g_RangeLayer) --image:newTexture("media/_range.png", g_RangeLayer, "range_tex")
+	self._mvRangeBad_tex = wanim:newDeck("media/_range_bad.png", 32, g_RangeLayer)--image:newTexture("media/_range_bad.png", g_RangeLayer, "range_bad_tex")
+	self._path_tex = wanim:newDeck("media/_path.png", 32, g_GroundLayer)--image:newDeckTexture("media/_path.png", g_RangeLayer, "path_tex", 32, "NotNill")
 
-	self._captureHouse_tex = anim:newDeck("Game/media/capture_house.png", 32, 6) -- top most
+	self._captureHouse_tex = wanim:newDeck("media/capture_house.png", 32, g_ActionPhase_UI_Layer) -- top most
 
-	self._touchRipple_tex = anim:newDeck("Game/media/confirmMoveAnimation.png", 32, g_ActionPhase_UI_Layer)
+	self._touchRipple_tex = wanim:newDeck("media/confirmMoveAnimation.png", 32, g_ActionPhase_UI_Layer)
 
 	self._touchRipple = anim:newAnim(self._touchRipple_tex, 10, -20000, 0, 10 )
 	--anim:addToPool(self._touchRipple)
@@ -131,29 +140,29 @@ function unit:init(_mapFile)
 	self._rippleY = -2000
 	self._ripX = 0
 	self._ripY = 0
-	self._healthBar_base = image:newTexture("Game/media/hb_front.png", g_ActionPhase_UI_Layer, "hb_base_tex")
-	self._healthBar_cover = image:newTexture("Game/media/hb_background.png", g_ActionPhase_UI_Layer, "hb_cov_tex")
-	self._healthbar_bg_anim = anim:newDeck("Game/media/hb_background_anim.png", 32, g_ActionPhase_UI_Layer)
-	self._healthBar_base2 = image:newTexture("Game/media/hb_front2.png", g_ActionPhase_UI_Layer, "hb_base2_tex")
+	self._healthBar_base = wimage:newTexture("media/hb_front.png", g_ActionPhase_UI_Layer, "hb_base_tex")
+	self._healthBar_cover = wimage:newTexture("media/hb_background.png", g_ActionPhase_UI_Layer, "hb_cov_tex")
+	self._healthbar_bg_anim = wanim:newDeck("media/hb_background_anim.png", 32, g_ActionPhase_UI_Layer)
+	self._healthBar_base2 = wimage:newTexture("media/hb_front2.png", g_ActionPhase_UI_Layer, "hb_base2_tex")
 
 	self._hbTable = {}
 	self._hbTable[1] = self._healthBar_base
 	self._hbTable[2] = self._healthBar_base2
-	self._crossHair_tex = image:newTexture("Game/media/crosshair_tex.png", g_RangeLayer, "cross_hair_tex")
+	self._crossHair_tex = wimage:newTexture("media/crosshair_tex.png", g_RangeLayer, "cross_hair_tex")
 
-	self._ssjAnim_tex = anim:newDeck("Game/media/MGL_Sayan01.png", 64, g_ActionPhaseLayer )
+	self._ssjAnim_tex = wanim:newDeck("media/MGL_Sayan01.png", 64, g_ActionPhaseLayer )
 
 	anim:createState("SSJ_OFF", 1, 1, 10)
 	anim:createState("SSJ_POWER", 2, 5, 0.08)
 	anim:createState("SSJ_ON", 7, 10, 0.1)
 	--self._ssjAnim = anim:newAnim(self._ssjAnim_tex, 4, -20000, 0, 1)
 
-	self._aiPointerAnim = anim:newDeck("Game/media/ai_char_pointer.png", 32, g_RangeLayer)
+	self._aiPointerAnim = wanim:newDeck("media/ai_char_pointer.png", 32, g_RangeLayer)
 	self._aiPointer = anim:newAnim(self._aiPointerAnim, 2, -320, -320, 1)
 
-	self._explosionAnimEffect = anim:newDeck("Game/media/MGL_Explosion.png", 64, g_ActionPhaseLayer)
-	self._healthAnimEffect = anim:newDeck("Game/media/MGL_PlusHealth.png", 64, g_ActionPhaseLayer)
-	self._auraEffect = anim:newDeck("Game/media/aura_effect.png", 64,  g_RangeLayer)
+	self._explosionAnimEffect = wanim:newDeck("media/MGL_Explosion.png", 64, g_ActionPhaseLayer)
+	self._healthAnimEffect = wanim:newDeck("media/MGL_PlusHealth.png", 64, g_ActionPhaseLayer)
+	self._auraEffect = wanim:newDeck("media/aura_effect.png", 64,  g_RangeLayer)
 
 	self._attackTextTable = {}
 	self._inRangeUnitHpTable = {}
@@ -173,7 +182,7 @@ function unit:init(_mapFile)
 
 	self._cpIDX = 1 -- index used to move computer units during their turn
 
-	self._turn = 1
+	
 
 	self._turns = 0 -- counts numbr of turns passed
 
@@ -257,10 +266,22 @@ function unit:init(_mapFile)
 	self:_setWinCondition(Game.winCondition)
 	sound:playFromCategory(SOUND_BGMUSIC)
 
+	--self._turn = 2
 	self._turnDelay = 1
 	self._changingTurns = 4
 
 	self._falseTurn = 1 -- not actual turn.... Ya'll see
+
+
+	-----------------------------
+	---
+	-- MESSY STUFF STARTING HERE! Pls fix :(
+
+	self._scrollCameraToPlayerOnTurnOne = false -- deliberately huge name, so I'll feel ashamed and FIX this hack later
+	self._lastDirtyHack = false
+	---
+	---
+	----------------------
 end
 
 function unit:_createStatesForUnits( )
@@ -269,12 +290,15 @@ function unit:_createStatesForUnits( )
 	self._animStates = { }
 	self._animStates[1] = { } -- for Mutants
 	self._animStates[2] = { } -- for robots
+	self._animStates[3] = { } -- for commanders
 
 	anim:createState("SPOTTAH_IDLE", 1, 4, 0.13)
 	anim:createState("SPOTTAH_IDLE_LEFT", 5, 8, 0.13)
 	anim:createState("SPOTTAH_ATTACK", 10, 18, attack_speed)
 	anim:createState("SPOTTAH_ATTACK_LEFT", 19, 27, attack_speed)
 
+	
+	
 	anim:createState("PANZASPOTTAH_IDLE", 1, 4, 0.13)
 	anim:createState("PANZASPOTTAH_IDLE_LEFT", 5, 8, 0.13)
 	anim:createState("PANZASPOTTAH_ATTACK", 12, 22, attack_speed)
@@ -320,6 +344,27 @@ function unit:_createStatesForUnits( )
 	anim:createState("MECHA_ATTACK", 11, 22, attack_speed)
 	anim:createState("MECHA_ATTACK_LEFT", 23, 34, attack_speed)
 
+
+	anim:createState("PRIMA_IDLE", 1, 2, 0.13)
+	anim:createState("PRIMA_IDLE_LEFT", 1, 2, 0.13)
+	anim:createState("PRIMA_ATTACK_RIGHT", 3, 4, attack_speed)
+	anim:createState("PRIMA_ATTACK_LEFT", 3, 4, attack_speed)
+
+	anim:createState("SIGNAL_IDLE", 5, 6, 0.13)
+	anim:createState("SIGNAL_IDLE_LEFT", 5, 6, 0.13)
+	anim:createState("SIGNAL_ATTACK_RIGHT", 7, 8, attack_speed)
+	anim:createState("SIGNAL_ATTACK_LEFT", 7, 8, attack_speed)
+
+	anim:createState("THUNDERBYTE_IDLE", 9, 10, 0.13)
+	anim:createState("THUNDERBYTE_IDLE_LEFT", 9, 10, 0.13)
+	anim:createState("THUNDERBYTE_ATTACK_RIGHT", 11, 12, attack_speed)
+	anim:createState("THUNDERBYTE_ATTACK_LEFT", 11, 12, attack_speed)
+
+	anim:createState("TWINNINGS_IDLE", 13, 14, 0.13)
+	anim:createState("TWINNINGS_IDLE_LEFT", 13, 14, 0.13)
+	anim:createState("TWINNINGS_ATTACK_RIGHT", 15, 16, attack_speed)
+	anim:createState("TWINNINGS_ATTACK_LEFT", 15, 16, attack_speed)
+
 	self._animStates[1][1] = { idle = "SPOTTAH_IDLE", attack = "SPOTTAH_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "SPOTTAH_ATTACK_LEFT"  } -- spottah 
 	self._animStates[1][2] = { idle = "SPOTTAH_IDLE", attack = "PANZASPOTTAH_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "PANZASPOTTAH_ATTACK_LEFT"} -- spottah 
 	self._animStates[1][3] = { idle = "ATTACKA_IDLE", attack = "ATTACKA_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ATTACKA_ATTACK_LEFT" } -- spottah 
@@ -331,6 +376,11 @@ function unit:_createStatesForUnits( )
 	self._animStates[2][3] = { idle = "PUNCHY_IDLE", attack = "PUNCHY_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "PUNCHY_ATTACK_LEFT" }
 	self._animStates[2][4] = { idle = "ROBO_ROKKIT_IDLE", attack = "ROBO_ROKKIT_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ROBO_ROKKIT_ATTACK_LEFT" }  
 	self._animStates[2][5] = { idle = "MECHA_IDLE", attack = "MECHA_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "MECHA_ATTACK_LEFT" } 
+
+	self._animStates[3][1] = { idle = "PRIMA_IDLE", attack = "PRIMA_ATTACK_RIGHT", left = "PRIMA_IDLE_LEFT", aleft = "PRIMA_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][2] = { idle = "SIGNAL_IDLE", attack = "SIGNAL_ATTACK_RIGHT", left = "SIGNAL_IDLE_LEFT", aleft = "SIGNAL_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][3] = { idle = "THUNDERBYTE_IDLE", attack = "THUNDERBYTE_ATTACK_RIGHT", left = "THUNDERBYTE_IDLE_LEFT", aleft = "THUNDERBYTE_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][4] = { idle = "TWINNINGS_IDLE", attack = "TWINNINGS_ATTACK_RIGHT", left = "TWINNINGS_IDLE_LEFT", aleft = "TWINNINGS_ATTACK_LEFT"  } -- spottah 
 
 	
 end
@@ -397,6 +447,16 @@ function unit:addUnitsToMap(_mapFile)
 			end	
 		end
 	end
+
+	unit:newCommander(1, 1, 1, 1)
+	unit:newCommander(1, 2, 1, 2)
+	unit:newCommander(1, 1, 2, 3)
+	unit:newCommander(1, 2, 2, 4)
+
+	unit:newCommander(2, 7, 5, 1)
+	unit:newCommander(2, 7, 6, 2)
+	unit:newCommander(2, 7, 7, 3)
+	unit:newCommander(2, 6, 5, 4)
 end
 
 ---------------------------------------
@@ -429,8 +489,8 @@ function unit:new(_team,_x, _y, _type, _doneFlagOptional)
 		initital_hp = unit_type[untTeam][_type].health,
 		hp = unit_type[untTeam][_type].health,
 		displayHP = unit_type[untTeam][_type].health,
-		hb_c = anim:newAnim(self._healthbar_bg_anim, 6, _x*32-9000, _y*32-9000, 1 ),--image:newImage(self._healthBar_cover, _x*32, _y*32),
-		hb_b = image:newImage(self._hbTable[_team], _x*32-9000, _y*32-9000),
+	--	hb_c = anim:newAnim(self._healthbar_bg_anim, 6, _x*32-9000, _y*32-9000, 1 ),--image:newImage(self._healthBar_cover, _x*32, _y*32),
+	--	hb_b = image:newImage(self._hbTable[_team], _x*32-9000, _y*32-9000),
 		issuedOrder = false,
 		done = false,
 		can_attack = false,
@@ -449,14 +509,14 @@ function unit:new(_team,_x, _y, _type, _doneFlagOptional)
 		name = ""..math.random(1, 400).."",
 		ap = 10,
 		prepareDeath = false,
-		--type_tex = font:newWord(_x*32-9000, _y*32-9000, "S", "Game/media/MGL_font_Smallest2.png", 16, true, 7),
-		hb_text = font:newWord(_x*32-9000, _y*32-9000, "10       ", "Game/media/MGL_font_Smallest2.png", 16, true, 7),
+		--type_tex = font:newWord(_x*32-9000, _y*32-9000, "S", "media/MGL_font_Smallest2.png", 16, true, 7),
+		hb_text = font:newWord(_x*32-9000, _y*32-9000, "10       ", "media/MGL_font_Smallest2.png", 16, true, 7),
 		faction = untTeam,
 		retreat = false,
-		
-
+		isCommander = false,
+	--	healthGrid = mGrid:new(, _height, _tileSize, _image, _optionalGridTile, _string, _optionalLayer)
 	--[[
-font:newWord(_x*32, _y*32, "10 ", "Game/media/MGL_font_Smallest2.png", 16, true, 2),
+font:newWord(_x*32, _y*32, "10 ", "media/MGL_font_Smallest2.png", 16, true, 2),
 font:setText(v.hb_text, ""..fontHP.."", v.act_x+2, v.act_y-8)
 	]]
 
@@ -485,11 +545,166 @@ font:setText(v.hb_text, ""..fontHP.."", v.act_x+2, v.act_y-8)
 			temp.faction = 1
 		end
 	end
+
+	--[[
+
+healthGrid = mGrid:new(, _height, _tileSize, _image, _optionalGridTile, _string, _optionalLayer)
+	]]
+
+	local hbWidth = math.ceil(temp.hp/2)
+	local hbHeight = 2
+	local hbTileSize = 4
+	--healthbar_new.png
+	local tileIndex = temp.team+1
+	temp.healthGrid = mGrid:new(hbWidth, hbHeight, hbTileSize, "Game/media/healthbar_new.png", tileIndex, "HBGrid"..math.random(1, 90000).."", g_ActionPhase_UI_Layer)
+	--mGrid:setIndex(temp.healthGrid, 2)
+
 	temp.eff = nil
 	temp.canConquer = unit_type[untTeam][temp.tp].canCapture
 	table.insert(self._unitTable, temp)
 
 	anim:setState(temp.img, self._animStates[temp.faction][temp.tp].idle)
+	--anim:setState(temp.hb_c, "HB_BG")
+
+	anim:flip(temp.img, true)
+
+	map:_updateFogOfWar( )
+
+	if  _doneFlagOptional ~= nil then
+		temp.done =  _doneFlagOptional
+	else
+		temp.done = true
+	end
+end
+
+function unit:newCommander(_team, _x, _y, _type, _doneFlagOptional)
+	local untTeam = self._teamToPlayer[_team].team
+	local temp = {
+		id = #self._unitTable + 1,
+		x = math.floor(_x),
+		y = math.floor(_y),
+		tp = _type,
+		team = _team,
+		--img = anim:newAnim(self._teamTex[unit_type[_team][_type].tex], 16, -300-9000, 0, 1),--image:newDeckImage(self._teamTex[_team], 0, 0, unit_type[_type].tex),
+		--image:newDeckImage(self._teamTex[_team], 0, 0, unit_type[_type].tex),
+		damage = unit_type[untTeam][_type].damage,
+		path = {},
+		length = 0, -- how many steps the path has
+		cur = 1,
+		isThere = false,
+		isMoving = false,
+		goal_x = 0,
+		goal_y = 0,
+		act_x = _x,
+		act_y = _y,
+		isSelected = false,
+		speed = 1.25, -- Timer difference actually
+		move_speed = 0.25,
+		moveTimer = Game.worldTimer, 
+		initital_hp = commander_type[untTeam][_type].health,
+		hp = commander_type[untTeam][_type].health,
+		displayHP = commander_type[untTeam][_type].health,
+		hb_c = anim:newAnim(self._healthbar_bg_anim, 6, _x*32-9000, _y*32-9000, 1 ),--image:newImage(self._healthBar_cover, _x*32, _y*32),
+		hb_b = image:newImage(self._hbTable[_team], _x*32-9000, _y*32-9000),
+		issuedOrder = false,
+		done = false,
+		can_attack = false,
+		has_attacked = false,
+		targeted = false,
+		moveted = false, -- hehe, movemeted
+		attack_range = 2,
+		min_attack_range = 2,
+		old_x = _x,
+		old_y = _y,
+		__debugDispRange = false,
+		objectiveSet = false,
+		rival = nil,
+		disabled = false,
+		hasGoal = false,
+		name = ""..math.random(1, 400).."",
+		ap = 10,
+		prepareDeath = false,
+		--type_tex = font:newWord(_x*32-9000, _y*32-9000, "S", "media/MGL_font_Smallest2.png", 16, true, 7),
+		hb_text = font:newWord(_x*32-9000, _y*32-9000, "10       ", "media/MGL_font_Smallest2.png", 16, true, 7),
+		faction = untTeam,
+		retreat = false,
+		isCommander = true,
+
+	--[[
+font:newWord(_x*32, _y*32, "10 ", "media/MGL_font_Smallest2.png", 16, true, 2),
+font:setText(v.hb_text, ""..fontHP.."", v.act_x+2, v.act_y-8)
+	]]
+
+		
+	}
+	--[[
+		-- TEMPORARY TEX FILE:
+		frame/tiles got from 1 file: Offset is 2 for team.
+		1-2 frames: idle
+		3-4 attack
+
+		That's type*4 for individual images.
+
+		-- TODO: Anim states going from type/team
+
+
+
+	]]
+--[[
+
+
+ 
+
+]]
+	 
+	local cTex = commander_type[_team][_type].tex*4
+	local stateStart, stateEnd = commander_type[_team][_type].start, commander_type[_team][_type].send
+	temp.stateName = "".._type.."_".._team..""
+	anim:createState(""..temp.stateName.."", stateStart, stateStart+1, 0.14)
+	temp.img = anim:newAnim(self._commanderTexture[1][1], 28, -300-9000, 0, cTex)
+
+	anim:setState(temp.img, temp.stateName)
+
+	if temp.team == 1 then
+		--[[temp.range = 8--unit_type[untTeam][temp.tp].mobility
+		temp.attack_range = unit_type[untTeam][temp.tp].max_range
+		temp.min_attack_range = unit_type[untTeam][temp.tp].min_range
+--]]
+		temp.player = "player"
+		self._unitBuildList.p1 = self._unitBuildList.p1 + 1
+	else
+		--[[temp.range = 8--unit_type[untTeam][temp.tp].mobility
+		temp.attack_range = unit_type[untTeam][temp.tp].max_range
+		temp.min_attack_range = unit_type[untTeam][temp.tp].min_range
+		--]]
+		temp.player = "computer"
+		self._unitBuildList.p2 = self._unitBuildList.p2 + 1
+
+		if temp.faction == 1 then
+			temp.faction = 2
+		elseif temp.faction == 2 then
+			temp.faction = 1
+		end
+	end
+	temp.range = commander_type[untTeam][temp.tp].mobility--unit_type[untTeam][temp.tp].mobility
+	temp.attack_range = commander_type[untTeam][temp.tp].max_range
+	temp.min_attack_range = commander_type[untTeam][temp.tp].min_range
+	--commander_type
+
+	local hbWidth = math.ceil(temp.hp/2)
+	local hbHeight = 2
+	local hbTileSize = 4
+	--healthbar_new.png
+	local tileIndex = temp.team+1
+	temp.healthGrid = mGrid:new(hbWidth, hbHeight, hbTileSize, "Game/media/healthbar_new.png", tileIndex, "HBGrid"..math.random(1, 90000).."", g_ActionPhase_UI_Layer)
+	--mGrid:setIndex(temp.healthGrid, 2)
+
+
+	temp.eff = nil
+	temp.canConquer = commander_type[untTeam][temp.tp].canCapture
+	table.insert(self._unitTable, temp)
+
+	--anim:setState(temp.img, self._animStates[temp.faction][temp.tp].idle)
 	anim:setState(temp.hb_c, "HB_BG")
 
 	anim:flip(temp.img, true)
@@ -543,8 +758,18 @@ end
 
 function unit:draw(_id)
 	local v = self._unitTable[_id]
-	v.act_x = v.x * self._tileSize - self._tileSize+self._offsetX
-	v.act_y = v.y * self._tileSize - self._tileSize+self._offsetY-5
+	local offsetX = 0
+	local offsetY = 0
+	if v.isCommander == false then
+		v.act_x = v.x * self._tileSize - self._tileSize+self._offsetX
+		v.act_y = v.y * self._tileSize - self._tileSize+self._offsetY-5
+	else
+		v.act_x = v.x * self._tileSize - self._tileSize+self._offsetX
+		v.act_y = v.y * self._tileSize - self._tileSize+self._offsetY-5
+
+		offsetX = 8
+		offsetY = 11
+	end
 	if v.done == true then
 		image:setColor(v.img.img, 120, 120, 120, 1)
 	end
@@ -553,14 +778,14 @@ function unit:draw(_id)
 	local _bool = true
 	if Game.globalFogOfWar == true then
 		if mGrid:getTile(3, v.x, v.y) == 3 then
-			anim:updateAnim(v.img, v.act_x, v.act_y)
+			anim:updateAnim(v.img, v.act_x - offsetX , v.act_y - offsetY)
 			_bool = true
 
 		else
 			_bool = false
 		end
 	else
-		anim:updateAnim(v.img, v.act_x, v.act_y)
+		anim:updateAnim(v.img, v.act_x - offsetX , v.act_y - offsetY)
 
 	end
 		image:setVisible(v.img.img, _bool)
@@ -584,7 +809,7 @@ function unit:draw(_id)
 	end--]]
 	
 --[[
-font:newWord(_x*32, _y*32, "10 ", "Game/media/MGL_font_Smallest2.png", 16, true, 2),
+font:newWord(_x*32, _y*32, "10 ", "media/MGL_font_Smallest2.png", 16, true, 2),
 
 ]]
 
@@ -594,28 +819,54 @@ end
 function unit:_drawHealthbar(_id, _bool)
 	local v = self._unitTable[_id]
 	local scaleFactor = 1 - ( (100 - ( (100 * v.displayHP) / v.initital_hp ) ) / 100 )
+
+	--commander_type[
+	local checkTable = unit_type
+	if v.isCommander == true then
+		checkTable = commander_type
+	end
+
 	if v.hp < 0 then
 		v.hp = 0
-	elseif v.hp > unit_type[v.team][v.tp].health then
-		v.hp = unit_type[v.team][v.tp].health
+	elseif v.hp > checkTable[v.team][v.tp].health then
+		v.hp = checkTable[v.team][v.tp].health
 	end
 
 	if v.displayHP < 0 then
 		v.displayHP = 0
-	elseif v.displayHP > unit_type[v.team][v.tp].health then
-		v.displayHP = unit_type[v.team][v.tp].health
+	elseif v.displayHP > checkTable[v.team][v.tp].health then
+		v.displayHP = checkTable[v.team][v.tp].health
 	end
-	image:_setScale(v.hb_b, scaleFactor, 1)
+	--image:_setScale(v.hb_b, scaleFactor, 1)
 	--image:updateImage(v.hb_b, v.act_x, v.act_y-3 )
-	image:updateImage(v.hb_b, v.act_x, v.act_y-8)
-	anim:updateAnim(v.hb_c, v.act_x, v.act_y-8 )
+	--image:updateImage(v.hb_b, v.act_x, v.act_y-8)
+	--anim:updateAnim(v.hb_c, v.act_x, v.act_y-8 )
 	--if _bool == true then
-	image:setVisible(v.hb_b, _bool)
-	image:setVisible(v.hb_c.img, _bool)
+	--image:setVisible(v.hb_b, _bool)
+	--image:setVisible(v.hb_c.img, _bool)
+
+
+	--if v.healthGrid ~= nil then
+	--	print("HEALTH GRID IS ON:")
+	--end
+	if v.healthGrid ~= nil then
+		
+		local mfHp = math.floor(v.displayHP)
+	--	print("HEALTH FOR UNIT: "..mfHp.." Team: "..v.team.."")
+		mGrid:setTilesExtra(v.healthGrid, mfHp, v.team+1, 1)
+		mGrid:setPos(v.healthGrid, v.act_x, v.act_y-10)
+	end
 	--else
 
 	--end
 end
+
+function unit:_updateHBIndex(_id)
+	local v = self._unitTable[_id]
+
+end
+
+
 
 function unit:_endTurnForPlayer( )
 	self:_resetStats(2)
@@ -803,8 +1054,8 @@ function unit:selectedUnitGetAction(_x, _y)
 			self:_removeRange( )
 			self._destPath.x = _x
 			self._destPath.y = _y
-			print("SHAIT, THIS IS HAPPENING")
-			print("X IS: ".._x.." Y IS: ".._y.."")
+			--print("SHAIT, THIS IS HAPPENING")
+			--print("X IS: ".._x.." Y IS: ".._y.."")
 			self:_drawMovementPath(v.x, v.y, _x, _y)
 			--anim:updateAnim(self._touchRipple, v.x, v.y)
 			self:__setRipple(_x, _y)
@@ -945,10 +1196,14 @@ DHP = HP of defender
 		local dmg_tar = self:_calculateAttack(v, t)
 		
 		--local damage_target = ( v.damage*100/100+math.random(0, 9) ) *(v.hp/10)* ( (200 - ( 100+1*t.hp ))/100)
-		if v.x < t.x then
-			anim:setState(v.img, self._animStates[v.faction][v.tp].attack, self._animStates[v.faction][v.tp].idle)
+		if v.isCommander == true then
+			anim:setState(v.img, self._animStates[3][v.tp].attack, v.stateName )
 		else
-			anim:setState(v.img, self._animStates[v.faction][v.tp].aleft, self._animStates[v.faction][v.tp].left)
+			if v.x < t.x then
+				anim:setState(v.img, self._animStates[v.faction][v.tp].attack, self._animStates[v.faction][v.tp].idle)
+			else
+				anim:setState(v.img, self._animStates[v.faction][v.tp].aleft, self._animStates[v.faction][v.tp].left)
+			end
 		end
 
 		t.hp = t.hp - dmg_tar
@@ -974,7 +1229,7 @@ DHP = HP of defender
 			interface:setTargetAtLoc(t.x, t.y)
 			--if currentFrame == lastFrame then
 				if v.tp == 4 or (v.tp == 5 and v.faction == 1 ) then
-					effect:new("DAMAGE_EFFECT", t.x, t.y, self._explosionAnimEffect, 7 )
+					weffect:new("DAMAGE_EFFECT", t.x, t.y, self._explosionAnimEffect, 7 )
 				end
 			--end
 		end
@@ -1024,11 +1279,15 @@ DHP = HP of defender
 		local distCheck = math.dist(v.x, v.y, t.x, t.y)
 		if t.hp > 0.1 and distCheck <= t.attack_range  then
 			local dmg_attk = self:_calculateAttack(t, v)
-			if v.x > t.x then
-				anim:setState(t.img, self._animStates[t.faction][t.tp].attack, self._animStates[t.faction][t.tp].idle)
-			else
-				anim:setState(t.img, self._animStates[t.faction][t.tp].aleft, self._animStates[t.faction][t.tp].left)
-			end			
+			if t.isCommander == true then
+				anim:setState(t.img, self._animStates[3][t.tp].attack, t.stateName )
+			else			
+				if v.x > t.x then
+					anim:setState(t.img, self._animStates[t.faction][t.tp].attack, self._animStates[t.faction][t.tp].idle)
+				else
+					anim:setState(t.img, self._animStates[t.faction][t.tp].aleft, self._animStates[t.faction][t.tp].left)
+				end		
+			end	
 
 
 			v.hp = v.hp - dmg_attk
@@ -1041,7 +1300,7 @@ DHP = HP of defender
 			map:updateTile(v.x, v.y, 10)
 			if v.img ~= nil then
 				if t.tp == 4 or (t.tp == 5 and t.faction == 1 ) then
-					effect:new("DAMAGE_EFFECT", v.x, v.y, self._explosionAnimEffect, 7 )
+					weffect:new("DAMAGE_EFFECT", v.x, v.y, self._explosionAnimEffect, 7 )
 				end
 			end
 
@@ -1113,10 +1372,19 @@ function unit:_resetStats(_team)
 			v.rival = nil
 			v.mustMove = nil
 
-			v.damage = unit_type[v.faction][v.tp].damage
-			v.range = unit_type[v.faction][v.tp].mobility
-			v.attack_range = unit_type[v.faction][v.tp].max_range
-			v.min_attack_range = unit_type[v.faction][v.tp].min_range
+
+			if v.isCommander == false then
+				v.damage = unit_type[v.faction][v.tp].damage
+				v.range = unit_type[v.faction][v.tp].mobility
+				v.attack_range = unit_type[v.faction][v.tp].max_range
+				v.min_attack_range = unit_type[v.faction][v.tp].min_range
+			else -- TEMP! Don't be hating on me.
+				--[_team][_type]
+				v.damage = commander_type[v.faction][v.tp].damage
+				v.range = commander_type[v.faction][v.tp].mobility
+				v.attack_range = commander_type[v.faction][v.tp].max_range
+				v.min_attack_range = commander_type[v.faction][v.tp].min_range
+			end
 
 			self._cpIDX = 1
 			v.cur = 1
@@ -1495,15 +1763,16 @@ function unit:remove(_id)
 				sound:play(sound.mechDying)
 			end
 
-			effect:new("DAMAGE_EFFECT", v.x, v.y, self._explosionAnimEffect, 7 )--anim:setState(v.img, "HURT", "MOVE_LEFT")
+			weffect:new("DAMAGE_EFFECT", v.x, v.y, self._explosionAnimEffect, 7 )--anim:setState(v.img, "HURT", "MOVE_LEFT")
 
 			v.prepareDeath = true
 		else
 			--if anim:getCurrentFrame(v.img) == 20 then
 				anim:delete(v.img, g_ActionPhaseLayer)
-				image:removeProp(v.hb_b, g_ActionPhase_UI_Layer)
-				anim:delete(v.hb_c, g_ActionPhase_UI_Layer)
+				--image:removeProp(v.hb_b, g_ActionPhase_UI_Layer)
+				--anim:delete(v.hb_c, g_ActionPhase_UI_Layer)
 				font:delete(v.hb_text)
+				mGrid:destroy(v.healthGrid)
 				--font:delete(v.type_tex)
 				table.remove(self._unitTable, _id)
 				self:_unitDeadCallback(_id)
@@ -1560,6 +1829,10 @@ end
 ----------------------------------------
 
 function unit:keypressed(key)
+
+	if self._onUi == true then
+		interface:_AUNavigation(key)
+	end
 	if key == 122 then
 		----print("KEY 122")
 		Game:initPathfinding( Game.grid )
@@ -1581,18 +1854,18 @@ end
 function unit:_cursorSelectPressed( )
 
 	if self._onUi == false and self._awatingCommand == false and self._teamToPlayer[self._turn].name == "Human" then
-		print("CURSOR SELECT PRESSED")
+		--print("CURSOR SELECT PRESSED")
 		if self._actionState == 1 then
-			print("ARE WE IN 1?")
+			--print("ARE WE IN 1?")
 			--Game:setCollisionAt(self._msx, self._msy, true)
 			self:selectUnit(Game.cursorX, Game.cursorY)
-			print("CURSOR X: "..Game.cursorX.." CURSOR Y: "..Game.cursorY.."")
+			--print("CURSOR X: "..Game.cursorX.." CURSOR Y: "..Game.cursorY.."")
 			--print("STATE 1")
 		elseif self._actionState == 2 then
 			interface:_setDockState(false) --interface:_setDockState(true)
 			self:selectedUnitGetAction(Game.cursorX, Game.cursorY)
-			print("STATE 2")
-			print("STATE 2 CURSOR X: "..Game.cursorX.." CURSOR Y: "..Game.cursorY.."")
+			--print("STATE 2")
+			--print("STATE 2 CURSOR X: "..Game.cursorX.." CURSOR Y: "..Game.cursorY.."")
 			--print("STATE 2")
 		elseif self._actionState == 3 then
 			--print("STATE 3")
@@ -1603,6 +1876,8 @@ function unit:_cursorSelectPressed( )
 			interface:_setDockState(false)
 			--print("STATE 4")
 		end
+	--elseif self._onUi == true then
+	--	interface:_AUNavigation(key)
 	end
 end
 
@@ -1615,7 +1890,7 @@ function unit:touchpresed( )
 	--if building:_getAtPos(self._msx, self._msy) == nil and building:selectBuilding(self._msx, self._msy) == nil then
 	if self._onUi == false then
 		MouseDown = true
-		camera:setJoystickVisible( )
+		--camera:setJoystickVisible( )
 	end
 	--end
 	self._touchEventType = false
@@ -1624,7 +1899,7 @@ end
 function unit:mousereleased( )
 	
 	MouseDown = false	
-	camera:setJoystickHidden( )
+	--camera:setJoystickHidden( )
 
 	if unit:_getTouchState( ) == true then
 		self._touchEventType = true
@@ -1715,15 +1990,22 @@ function unit:_getRandomUnitOfTeam(_team)
 
 end
 
+function unit:_returnTypeOfPlayer( )
+	return self._teamToPlayer[self._turn].name
+end
+
+
 function unit:_setATargetToScrollTo(_turn)
 
 	local v = self:_getRandomUnitOfTeam(_turn)
 	if v ~= nil then
 		map:setScreen(v.act_x, v.act_y)
 	end
+
 	--
 end
 
+ 
 function unit:_getFalseTurn( )
 	return self._falseTurn
 end
@@ -1733,12 +2015,36 @@ function unit:_getChangingTurnState( )
 end
 
 function unit:turn_loop( )
+	--print("FRAKING TURN COUNTER: "..self._turnCounter.."")
+	if self._turnCounter == 1 and self._teamToPlayer[self._turn].name == "Human" then -- so start of the game:
+		if self._scrollCameraToPlayerOnTurnOne == false then
+			unit:_setATargetToScrollTo(2)
+			self._lastDirtyHack = false 
+			self._scrollCameraToPlayerOnTurnOne  = true
+			
+		elseif self._scrollCameraToPlayerOnTurnOne == true then
+			
+			if self._lastDirtyHack == false then
+				map:scroll()
+			end
+
+			local bool = map:getScrollStatus( )
+			if bool == true then
+			--	print("AND IT shooouuuullllllldd be scrolllll")
+			else
+				self._lastDirtyHack = true
+				self._scrollCameraToPlayerOnTurnOne = 1337 -- why not?
+			--	print("Well then... well well well")
+			end
+		end
+
+	end
 
 	if self._changingTurns == 1 then
 	
 
 		self._turnDelay = Game.worldTimer
-		unit:_setATargetToScrollTo( )
+		--unit:_setATargetToScrollTo(1)
 		
 		
 		if self._turn == 1 then
@@ -1757,8 +2063,13 @@ function unit:turn_loop( )
 		
 		self._changingTurns = 2
 	elseif self._changingTurns == 2 then
+		
 
-		map:scroll( )
+		--camera:setScroll
+		--if self._teamToPlayer[self._turn].name == "Human" then
+			
+		--end
+
 
 
 		interface:_setMenuPanelState(false)
@@ -1791,24 +2102,34 @@ function unit:turn_loop( )
 			map:_updateFogOfWar( )
 			self._changingTurns = self._changingTurns + 1
 			self._onUi = false
+
+
 		end
 	else
 
+		--map:scroll( )
 	end
 end
 
 function unit:advanceTurn( )
 	------print("FUCKING HERE ALREADY")
 	--map:_updateFogOfWar( )
-
+	
+	--print("SELF CHANGING FREAKING TURN IS: "..self._changingTurns.."")
 	if self._changingTurns > 3 then
 
-		self._changingTurns = 1
+
+
+		local mapScrollBool = map:getScrollStatus( )
+		--if mapScrollBool == false then
+			self._changingTurns = 1
+		--end
 	end
 
 end
 
 function unit:_advanceTurn2( )
+
 	if self._once == true then
 		------print("ONLY")
 		if self._turn == 1 then

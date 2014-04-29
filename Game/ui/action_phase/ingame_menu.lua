@@ -93,10 +93,12 @@ end
 
 
 function _handleTurnEndPressed( )
+	print("WE GOT HERE")
 	interface:setBuyMenu(false)
 	local nr = unit:_getNrOfUnitsLeftToMove( )
 	local table = interface:_returnTeamToPlayer( )
 	local _turn = unit:_returnTurn( )
+	print("WE GOT HERE 2)" )
 	if nr == 0 then
 		if unit:_getChangingTurnState( ) == 4 and table[_turn].name ~= "Computer" then
 			interface:_showConfirmMenu(false, 2)
@@ -110,15 +112,19 @@ function _handleTurnEndPressed( )
 			interface:_setMenuPanelState(false)
 			if Game.disableInteraction == false then
 				unit:advanceTurn( )
+				print("WE GOT HERE 4")
 			end
 		end
+		print("WE GOT HERE 3")
 	else
 		local table = interface:_returnTeamToPlayer( )
 		local _turn = unit:_returnTurn( )
+		print("WE GOT HERE 5")
 		if unit:_getChangingTurnState( ) == 4 and table[_turn].name ~= "Computer" then
 			interface:_setConfirmationScreenText("There are still units\nleft to move! Are you sure \nyou want to end your turn?")
 			interface:_setMenuPanelState(false)
-			interface:_showConfirmMenu(true, 2)		
+			interface:_showConfirmMenu(true, 2)	
+			print("WE GOT HERE 6")	
 		end
 	end
 
@@ -143,6 +149,9 @@ function _handleConfirmQuitPressed( )
 		_bGuiLoaded = false
 		_bGameLoaded = false
 		currentState = Game.lastState
+		Game.lastState = 5
+		print("LAST STATE: "..currentState.."")
+
 	else
 
 		if unit:_getChangingTurnState( ) == 4 then
