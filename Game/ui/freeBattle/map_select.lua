@@ -189,6 +189,7 @@ function interface:_populate_sm_widget( )
 			row:getCell(1):setText(""..map_table[i].stat.."")
 			row:getCell(2):setText("value = "..tostring(i).."")
 		end
+		self._smMapWidget:_disableScrollBar( )
 	end
 end
 

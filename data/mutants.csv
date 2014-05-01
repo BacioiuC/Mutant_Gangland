@@ -1,0 +1,11 @@
+Name,tex,health,min_range,max_range,mobility,damage,cost,canCapture,secondAbility,SpriteSheetTeam1,SpriteSheetTeam2,IDLE,IDLE_LEFT,ATTACK,ATTACK_LEFT,speed,buyMenuIcon1,buyMenuIcon2
+Spottah,1,4,0,1,3,4,20,TRUE,FALSE,spottah_blue.png,spottah_pink.png,1-4,5-8,10-18,19- 27,0.13,11.png,31.png
+Panza Spottah,2,7,0,1,3,4,30,TRUE,FALSE,panza_spottah_blue.png,panza_spottah_pink.png,1-4,5-8,12-22,23-33,0.13,12.png,32.png
+Attacka,3,7,0,1,5,5,40,FALSE,FALSE,attacka_blue.png,attacka_pink.png,1-4,5-8,11-20,21-30,0.13,13.png,33.png
+Butcha,4,8,1,3,4,6,80,FALSE,FALSE,rockit_blue.png,rockit_pink.png,1-4,5-8,12-22,22-32,0.13,14.png,34.png
+BamTank,5,10,0,2,5,7,130,FALSE,TRUE,tank_blue.png,tank_pink.png,1-4,5-8,12-22,22-32,0.13,15.png,35.png
+JOE,6,13,0,4,10,25,1,TRUE,FALSE,joe.png,joe.png,1-4,5-8,12-22,22-32,0.13,empty.png,empty.png
+Allen,6,13,0,4,10,25,1,TRUE,FALSE,joe.png,joe.png,1-4,5-8,12-22,22-32,0.13,empty.png,empty.png
+Bobby Kid,6,13,0,4,10,25,1,TRUE,FALSE,joe.png,joe.png,1-4,5-8,12-22,22-32,0.13,empty.png,empty.png
+Crystal,6,13,0,4,10,25,1,TRUE,FALSE,joe.png,joe.png,1-4,5-8,12-22,22-32,0.13,empty.png,empty.png
+ISN,6,13,0,4,10,25,1,TRUE,FALSE,joe.png,joe.png,1-4,5-8,12-22,22-32,0.13,empty.png,empty.png

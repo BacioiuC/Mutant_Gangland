@@ -1,7 +1,7 @@
 require "Game.ui.resource_tables"
 local textstyles = require "gui/textstyles"
 
-
+local path = "buy_menu/unit_icons/"
 function interface:_buy_menu_init( )
 	-- setting up the unit stuff
 	self._buyUnitTable = {}
@@ -14,7 +14,7 @@ function interface:_buy_menu_init( )
 	self._pointerPosition = 1
 	-- table in table. First value = team. Second value - unit id
 	--self._buyUnitTable[1] = { }
-	local path = "buy_menu/unit_icons/"
+	
 
 
 	self._buyUnitTable[1] = { } -- team
@@ -87,6 +87,8 @@ function interface:_buy_menu_init( )
 	local roots, widgets, groups = g:loadLayout(resources.getPath("buymenu.lua"))
 
 	self._buyMenuWidgets = widgets
+	self._buyMenuRoots = roots
+	self._buyMenuGroups = groups
 	buyPanel = widgets.bgPanel.window
 	buyPanel:registerEventHandler(buyPanel.EVENT_MOUSE_ENTERS, nil, _handleMouseEnters)
 	buyPanel:registerEventHandler(buyPanel.EVENT_MOUSE_LEAVES, nil, _handleMouseLeaves)
@@ -161,12 +163,16 @@ function interface:_makeBuyMenu(_roots, _widgets, _groups)
 
 end
 
-function interface:_populate_buyMenu_unitsList(_roots, _widgets, _groups)
-	local roots, widgets, groups = _roots, _widgets, _groups
+function interface:_populate_buyMenu_unitsList( )
+	local roots, widgets, groups = self._buyMenuRoots, self._buyMenuWidgets, self._buyMenuGroups
+	widgets.unitWidget.window:clearList()
 
-
-	
+	local _chkTurn = unit:_returnTurn( )
 	local _turn = 1
+
+	if _chkTurn ~= nil then
+		_turn = _chkTurn
+	end
 
 	local player1Team = _turn
 	local player1Faction = self._teamToPlayer[_turn].team
@@ -188,10 +194,24 @@ function interface:_populate_buyMenu_unitsList(_roots, _widgets, _groups)
 		header:registerEventHandler(header.EVENT_MOUSE_LEAVES, nil, _handleMouseLeaves)	
 
 
+		--local nrUnitsTeam1 = #unit_type[1]
+		--local nrUnitsTeam2 = #unit_type[2]
+
+		--[[
+	local teamTable = self._tTexture[untTeam][_type].p1
+	if _team == 2 then
+		teamTable = self._tTexture[untTeam][_type].p2
+	end
+
+
+
+		 ]]
 
 		--widgetList:setBackgroundImage( element.resources.getPath( "buy_menu/item_bg.png" ) )
 		-- Add some rows, and fill it with some junk data
-		for i = 1, 6 do
+		local nrUnitsForBuy = #unit_type[player1Faction]
+
+		for i = 1, nrUnitsForBuy do
 			local row = widgetList:addRow()
 			local row2 = widgetList:getRow(i)
 			row:setOneRowLower(true)
@@ -199,25 +219,41 @@ function interface:_populate_buyMenu_unitsList(_roots, _widgets, _groups)
 			row:registerEventHandler(row.EVENT_MOUSE_LEAVES, nil, _handleMouseLeaves)
 			-- The return from getCell is the widget created by setColumnWidget, so the normal
 			-- functionality for the widget is available.
-			if i < 6 then
-				--row:getCell(2):setTextStyle(textstyles.get( "stats" ), 14)
-				row:getCell(1):setImage( element.resources.getPath( self._buyUnitTable[player1Team][player1Faction][i].icon ) )
-				row:getCell(2):setImage( element.resources.getPath( "buy_menu/bg_list.png" ) )
-				row:getCell(2):setText( ""..self._buyUnitTable[player1Team][player1Faction][i].name.."\n "..self._buyUnitTable[player1Team][player1Faction][i].cost..""  )
+			local iconToUse = unit_type[player1Faction][i].buyMenuIcon1
+			if _turn == 2 then
+				iconToUse = unit_type[player1Faction][i].buyMenuIcon2
 			end
+			local iconPath 
+			if iconToUse == "empty.png" or iconToUse == nil or iconToUse == "" then
+				iconPath = ""..path.."empty.png"
+			else
+				iconPath = ""..path..""..iconToUse.."" 
+			end
+			
+			--if i < 6 then
+				--row:getCell(2):setTextStyle(textstyles.get( "stats" ), 14)
+				row:getCell(1):setImage( element.resources.getPath( iconPath ) )
+				row:getCell(2):setImage( element.resources.getPath( "buy_menu/bg_list.png" ) )
+				row:getCell(2):setText( ""..unit_type[player1Faction][i].Name.."\n "..unit_type[player1Faction][i].cost..""  )
+			--end
 		end
-		widgetList:disableScrollbar(true)
+		
 		--widgetList:setSelection(1)
 	end
 end
 
+--[[
+self._buyMenuWidgets
+self._buyMenuRoots
+self._buyMenuGroups 
+]]
 function interface:_update_buymenu_unitList( )
 	local _turn = unit:_returnTurn()
 
 	local player1Team = _turn
 	local player1Faction
 
-	if _turn == 2 then
+	--[[if _turn == 2 then
 		if self._teamToPlayer[_turn].team == 1 then
 			player1Faction = 2
 		else
@@ -225,13 +261,23 @@ function interface:_update_buymenu_unitList( )
 		end
 	else
 		player1Faction = self._teamToPlayer[_turn].team
-	end
-	--player1Faction = self._teamToPlayer[_turn].team
+	end--]]
+	player1Faction = self._teamToPlayer[_turn].team
 
 	for i = 1, 5 do
+			local iconToUse = unit_type[player1Faction][i].buyMenuIcon1
+			if _turn == 2 then
+				iconToUse = unit_type[player1Faction][i].buyMenuIcon2
+			end
+			local iconPath 
+			if iconToUse == "empty.png" or iconToUse == nil then
+				iconPath = ""..path.."empty.png"
+			else
+				iconPath = ""..path..""..iconToUse.."" 
+			end
 		local row = self._unitWidgetList:getRow(i)
-		row:getCell(1):setImage( element.resources.getPath( self._buyUnitTable[player1Team][player1Faction][i].icon ) )
-		row:getCell(2):setText( ""..self._buyUnitTable[player1Team][player1Faction][i].name.."" )
+		row:getCell(1):setImage( element.resources.getPath( iconPath ) )
+		row:getCell(2):setText( ""..unit_type[player1Faction][i].Name.."\n "..unit_type[player1Faction][i].cost..""  )
 			
 	end
 end
@@ -243,16 +289,16 @@ function interface:_update_buyMenu_unitInfo(_selID)
 	local turn = unit:_returnTurn( )
 	local player1Team = self._teamToPlayer[turn].team
 	local player1Faction = 1
-	if turn == 2 then
+	--[[if turn == 2 then
 		if self._teamToPlayer[turn].team == 1 then
 			player1Faction = 2
 		else
 			player1Faction = 1
 		end
 	else
-		player1Faction = self._teamToPlayer[turn].team
-	end
-
+		
+	end--]]
+	player1Faction = self._teamToPlayer[turn].team
 	local statTable = { }
 	local unTable = unit_type[player1Faction][_selID]
 	local answer = "NO"
@@ -325,6 +371,7 @@ function interface:_populate_buyMenu_untiInfo(_roots, _widgets, _groups)
 				row:getCell(3):setTextStyle(textstyles.get( "stats" ), 14)
 			end
 		end
+		widgetList:_disableScrollBar( )
 	end
 end
 
@@ -521,14 +568,14 @@ function _handleBuyUnitPressed( )
 	local selection = widgetList:getSelections()
 	local _id = selection[1]
 
-	if turn == 2 then
+	--[[if turn == 2 then
 		if player1Team == 1 then
 			player1Team = 2
 		else
 			player1Team = 1
 		end
 
-	end
+	end--]]
 	local _building = interface:_getBuilding( )
 	if _id ~= nil then
 		if _building.canProduce == true and  pPlayer.coins >= unit_type[player1Team][_id].cost then

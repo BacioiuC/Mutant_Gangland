@@ -55,9 +55,9 @@ function image:newTexture(_fileName, _parrentLayer, _name, _isDeck, _tileSize)
 	self.imageTable[tableIndex].texture = MOAITexture.new ()
 
 	if self.imageTable[tableIndex].texture ~= nil then
-		print("TEXTURE ARRAY = OK")
+		--print("TEXTURE ARRAY = OK")
 	else
-		print("TEXTURE ARRAY = NO NO")
+		--print("TEXTURE ARRAY = NO NO")
 	end
 
 	
@@ -93,8 +93,8 @@ function image:newTexture(_fileName, _parrentLayer, _name, _isDeck, _tileSize)
 		--self.imageTable[tableIndex].image:setUVRect( 0, 0, _tileSize, _tileSize )		
 	end
 
-	print("New image created in self.ImageTable with id: "..temp.id.."")
-	print("Table now contains: "..tableIndex.." images")
+	--print("New image created in self.ImageTable with id: "..temp.id.."")
+	--print("Table now contains: "..tableIndex.." images")
 	return temp.name, self.imageTable[tableIndex].image, self.imageTable[tableIndex].texture
 end
 
@@ -113,24 +113,13 @@ function image:newDeckTexture(_fileName, _parrentLayer, _name, _tileSize, _isGri
 	table.insert(self.imageTable, temp)
 
 	local tableIndex = #self.imageTable
-	-- CIG BREAK
-	-- BRB in 8 minutes
-	-------
-
-
-
-
-
-
-
-
 
 	self.imageTable[tableIndex].texture = MOAITexture.new ()
 
 	if self.imageTable[tableIndex].texture ~= nil then
-		print("TEXTURE ARRAY = OK")
+		--print("TEXTURE ARRAY = OK")
 	else
-		print("TEXTURE ARRAY = NO NO")
+		--print("TEXTURE ARRAY = NO NO")
 	end
 	--self.imageTable[tableIndex].texture:setFilter ( self._filter )
 	self.imageTable[tableIndex].texture:setWrap( false )
@@ -154,9 +143,9 @@ function image:newDeckTexture(_fileName, _parrentLayer, _name, _tileSize, _isGri
 		--self.imageTable[tableIndex].image:setRect(-xtex/_tileSize, -ytex/_tileSize, xtex/_tileSize, ytex/_tileSize)
 		--self.imageTable[tableIndex].image:setUVRect( 0, 0, _tileSize, _tileSize )		
 	
-	print("DECKS... ARE DECKS OK?")
-	print("New image created in self.ImageTable with id: "..temp.id.."")
-	print("Table now contains: "..tableIndex.." images")
+	--print("DECKS... ARE DECKS OK?")
+	--print("New image created in self.ImageTable with id: "..temp.id.."")
+	--print("Table now contains: "..tableIndex.." images")
 	return temp.name, self.imageTable[tableIndex].image, self.imageTable[tableIndex].texture
 end
 
@@ -201,7 +190,7 @@ function image:newDeckImage(_image, _x, _y, _deckTile)
 		--self.propTable[tableIndex].color = {r = 1, g = 1, b = 1, a = 1}
 		return temp.id
 	else
-		print("Cannot draw image, Name: ")
+		--print("Cannot draw image, Name: ")
 		return 0
 	end
 
@@ -235,7 +224,7 @@ function image:newImage(_image, _x, _y)
 		self.propTable[tableIndex]._y = _y
 		return temp.id
 	else
-		print("Cannot draw image, Name: ")
+		--print("Cannot draw image, Name: ")
 		return 0
 	end
 
@@ -263,7 +252,7 @@ function image:updateImage(_image, _x, _y)
 			--end
 		end
 	else
-		print("PAHIL IN UPDATE IMAGE")
+		--print("PAHIL IN UPDATE IMAGE")
 	end
 end
 
@@ -272,7 +261,7 @@ function image:getProp(_image)
 	if imageID > 0 then
 		return self.propTable[imageID].prop
 	else
-		print("WRONG IMAGE")
+		--print("WRONG IMAGE")
 		return nil
 	end
 end
@@ -312,7 +301,7 @@ function image:getScale(_image)
 	if imageProp ~= nil then
 		scx, scy = imageProp:getScl()
 	else
-		print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
 	end
 	return scx, scy
 end
@@ -331,7 +320,7 @@ function image:removeProp(_image, _layer)
 			self.propTable[imageID].prop = nil
 			--table.remove(self.propTable, _image)
 		else
-			print("WOOPS, something went wrong with image REMOVAL!")
+			--print("WOOPS, something went wrong with image REMOVAL!")
 		end
 	end
 end
@@ -355,7 +344,7 @@ end
 function image:dropImage(_image)
 	local imageID = image:returnImageId(_image)
 	if imageID > 0 then
-		print("REMOVING PROP: "..imageID.."")
+		--print("REMOVING PROP: "..imageID.."")
 		core:returnLayerTable( )[1].layer:removeProp( self.imageTable[imageID].prop )		
 	end
 end
@@ -411,7 +400,7 @@ function image:getSize(_image)
 		local szX, szY = self.imageTable[texID].texture:getSize( )
 		return szX, szY
 	else
-		print(" NOPE! IMAGE:GETSIZE() HAS A PHAIL!")
+		--print(" NOPE! IMAGE:GETSIZE() HAS A PHAIL!")
 		return nil, nil
 	end
 end
@@ -429,7 +418,7 @@ function image:setPriority(_image, _priority)
 	if imageID > 0 then
 		self.propTable[imageID].prop:setPriority( _priority )
 	else
-		print("CANNOT SET PRIORITY FOR IMAGE")
+		--print("CANNOT SET PRIORITY FOR IMAGE")
 	end
 end
 
@@ -446,7 +435,7 @@ function image:setColor(_image,r,g,b,alpha)
 		end
 
 	else
-		print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
+		--print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
 	
 	end
 end
@@ -457,7 +446,7 @@ function image:seekColor(_image,r,g,b,alpha, _time)
 		self.propTable[imageID].prop:seekColor(r,g,b,alpha, _time)
 
 	else
-		print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
+		--print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
 	
 	end
 end
@@ -468,7 +457,7 @@ function image:setTexture(_image, _texture)
 		self.propTable[imageID].prop:setTexture(_texture)
 
 	else
-		print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
+		--print("CANNOT SET COLOR FOR IMAGE: "..imageID.."")
 	
 	end
 end
@@ -491,7 +480,7 @@ function image:moveProp( _image, _x, _y )
 		imageProp:seekLoc(_x, _y)
 		--return true
 	else
-		print("CANNOT SEEK LOC WITH IMAGE:moveProp")
+		--print("CANNOT SEEK LOC WITH IMAGE:moveProp")
 		--return false
 	end
 end
@@ -502,7 +491,7 @@ function image:setGrid(_image, _grid)
 	if imageProp ~= nil then
 		imageProp:setGrid(_grid)
 	else
-		print("CANNOT SET GRID")
+		--print("CANNOT SET GRID")
 	end
 end
 
@@ -512,13 +501,13 @@ function image:setIndex(_image, _index)
 	if imageProp ~= nil then
 		imageProp:setIndex( _index)
 	else
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
-		print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
+		--print("CANNOT SET INDEX")
 	end
 	
 end
@@ -532,7 +521,7 @@ function image:newAnim(_startFrame, _endFrame, _deck, _deckSize)
 	}
 	temp.img = image:newDeckImage(temp.deck, 32, 32, temp.startFrame)
 	table.insert(self.animTable, temp)
-	print("TEMP IMG: "..temp.img.."")
+	--print("TEMP IMG: "..temp.img.."")
 	return temp.img
 end
 
@@ -543,7 +532,7 @@ function image:playAnim(_img, _x, _y, _startFrame, _endFrame, _delay)
 		performWithDelay(_delay, image._animAdvance, _endFrame-_startFrame+1, self, imageProp, _x, _y, _startFrame, _endFrame)
 		--image:_animAdvance(imageProp, _x, _y, _startFrame, _endFrame)
 	else
-		print("ANIM PROP IS NIL")
+		--print("ANIM PROP IS NIL")
 	end
 end
 
@@ -554,14 +543,14 @@ function image:_animIncIndex(_index, _start, _max)
 	else
 		idx = _start
 	end
-	print("IDX AT WORK"..idx.."")
+	--print("IDX AT WORK"..idx.."")
 	return idx
 end
 
 function image:_animAdvance(_prop, _x, _y, _start, _end)
 	_prop:setIndex(image:_animIncIndex(_prop:getIndex(), _start, _end) )
 	_prop:setLoc(_x, _y)
-	print("ADVANCING")
+	--print("ADVANCING")
 end
 
 function image:_removeAnim(_image)
@@ -600,7 +589,7 @@ function image:_count( )
 	local img = #self.imageTable
 	local prop = #self.propTable
 	for i = 1, 20 do
-		print("IMG: "..img.." PROP: "..prop.."")
+		--print("IMG: "..img.." PROP: "..prop.."")
 	end
 
 	MOAISim.forceGarbageCollection ()

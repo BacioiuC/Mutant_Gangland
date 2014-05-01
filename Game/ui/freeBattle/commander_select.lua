@@ -353,6 +353,7 @@ function interface:_cs_populateWidget(_team)
 				row:getCell(j):setImage(element.resources.getPath("commander/star_empty.png"))
 			end
 		end
+		widget:_disableScrollBar( )
 	end
 end
 
@@ -367,6 +368,7 @@ function interface:_csupdateWidget(_team)
 		pic = self._csComander2Pic
 	end
 
+	widget:_disableScrollBar( )
 	for i = 1, 5 do
 		local row = widget:getRow(i)
 		row:getCell(1):setText(""..stat_table[i].stat.."")
@@ -451,11 +453,7 @@ function _handleCsCommanderSelButtonPressed(event, data )
 		player1.team = commander[data._id].team
 		interface:_cs_setPlayerStats(1, data._id)
 	else
-		if commander[data._id].team == 1 then
-			player2.team = 2
-		else
-			player2.team = 1
-		end
+		player2.team = commander[data._id].team
 		interface:_cs_setPlayerStats(2, data._id)
 	end
 

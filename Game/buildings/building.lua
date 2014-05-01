@@ -312,7 +312,7 @@ function building:selectBuilding(_x, _y)
 				self:_addSelected(_building)
 				--g:injectMouseMove(0, 0)
 				interface:setBuyMenu(true, v)
-				interface:_update_buymenu_unitList( )
+				interface:_populate_buyMenu_unitsList( )
 				--------------------------------
 				--------------------------------
 				---- SOUND HERE ----------------

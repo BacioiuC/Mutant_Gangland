@@ -1,0 +1,6 @@
+Name,tex,health,min_range,max_range,mobility,damage,cost,canCapture,secondAbility,SpriteSheetTeam1,SpriteSheetTeam2,IDLE,IDLE_LEFT,ATTACK,ATTACK_LEFT,speed,buyMenuIcon1,buyMenuIcon2
+ROBO,6,4,0,1,3,4,15,TRUE,FALSE,scout_robo_blue.png,scout_robo_pink.png,1-4,5-8,10-18,19- 27,0.14,21.png,41.png
+ROBO2,7,7,0,1,3,4,25,TRUE,FALSE,scout_robo2_blue.png,scout_robo2_pink.png,1-4,5-8,12-22,23-33,0.14,22.png,42.png
+PUNCHY,8,7,0,1,5,5,35,FALSE,FALSE,punchy_blue.png,punchy_pink.png,1-4,5-8,11-20,21-30,0.14,23.png,43.png
+ROBO_ROKKIT,9,8,1,3,4,6,80,FALSE,FALSE,robo_rokkit_blue.png,robo_rokkit_pink.png,1-4,5-8,12-22,22-32,0.14,24.png,44.png
+MECHA,10,10,0,1,5,7,110,FALSE,TRUE,mecha_robo2_blue.png,mecha_robo_pink.png,1-4,5-8,12-22,22-32,0.14,25.png,45.png

@@ -196,6 +196,8 @@ function apLoop( )
 		map:setOffset(32, 16)
 		map:_updateFogOfWar( )
 		
+
+		interface:_update_buymenu_unitList( )
 		--map:_setCameraToCorrectPlayerPos( )
 		_bGameLoaded = true
 	else

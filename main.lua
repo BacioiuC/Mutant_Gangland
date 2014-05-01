@@ -131,6 +131,8 @@ inputconstants = require "gui/support/inputconstants"
 --------------------------------------------
 ----------------------------------------------
 --------------------------------------------
+require "additional.moses"
+require "additional.csvData"
 
 require "core.core"
 require "core.image"
@@ -147,6 +149,9 @@ require "core.effects"
 require "core.sound"
 
 require "Game.game" -- THE ACTUAL MAIN FILE! MAIN LUA is AREA 51, front for area 52 :D
+
+
+
 sound:init( )
 
 app_name = "Mutant Gangland ALPHA 1 UPDATE 6"

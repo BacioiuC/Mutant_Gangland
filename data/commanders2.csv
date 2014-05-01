@@ -1,0 +1,5 @@
+Name,tex,health,min_range,max_range,mobility,damage,cost,canCapture,secondAbility,SpriteSheetTeam1,SpriteSheetTeam2,start,send
+Prima,5,20,0,4,4,25,20,FALSE,FALSE,nil,nil,17,20
+Signal,6,21,0,4,4,25,30,FALSE,FALSE,nil,nil,21,24
+Thunderbyte,7,22,0,4,4,25,40,FALSE,FALSE,nil,nil,25,28
+Twinnings,8,23,0,4,4,25,80,FALSE,FALSE,nil,nil,29,32

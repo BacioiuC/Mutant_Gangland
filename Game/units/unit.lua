@@ -7,11 +7,15 @@ TO DO: FIX MULTIPLE UNIT ATTACKSSSS!! FFS, FIX IT DAMN IT
 
 ]]
 
-function unit:init(_mapFile)
-	self._turn = 1 
----------------------------------------
------- TABLES -------------------------
----------------------------------------
+
+function unit:_setupUnitsFromCSV( )
+	-- create states based on the CSV Document for units of BOTH ARMIES
+	-- Not really elegant but ogh well :()
+	self._animStates = { }
+	self._animStates[1] = { } -- for Mutants
+	self._animStates[2] = { } -- for robots
+	self._animStates[3] = { } -- for commanders
+	--[[
 	self._teamTexture = { }
 	self._teamTexture[1] = { } -- textures for team one
 	self._teamTexture[1][1] = { } -- textures for team one, mutants 1
@@ -28,20 +32,165 @@ function unit:init(_mapFile)
 	self._teamTexture[1][2][4] = wanim:newDeck("media/units/team/robo_rokkit2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[1][2][5] = wanim:newDeck("media/units/team/mecha_robo2.png", 32, g_ActionPhaseLayer)
 
-	self._teamTexture[2] = { } -- textures for team one
-	self._teamTexture[2][1] = { } -- textures for team one, mutants 1
+	self._teamTexture[2] = { } -- textures for team two
+	self._teamTexture[2][1] = { } -- textures for team one, mutants 2
 	self._teamTexture[2][1][1] = wanim:newDeck("media/units/team/scout_robo_t2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][1][2] = wanim:newDeck("media/units/team/scout_robo2_t2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][1][3] = wanim:newDeck("media/units/team/punchy.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][1][4] = wanim:newDeck("media/units/team/robo_rokkit.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][1][5] = wanim:newDeck("media/units/team/mecha_robo.png", 32, g_ActionPhaseLayer)
 
-	self._teamTexture[2][2] = { } -- textures for team one, robots 1
+	self._teamTexture[2][2] = { } -- textures for team one, robots 2
 	self._teamTexture[2][2][1] = wanim:newDeck("media/units/team/spottah2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][2][2] = wanim:newDeck("media/units/team/panza_spottah2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][2][3] = wanim:newDeck("media/units/team/attacka2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][2][4] = wanim:newDeck("media/units/team/rockit2.png", 32, g_ActionPhaseLayer)
 	self._teamTexture[2][2][5] = wanim:newDeck("media/units/team/tank2.png", 32, g_ActionPhaseLayer)
+	--]]
+
+	--[[
+	local attack_speed = 0.06
+
+
+
+
+
+
+
+
+
+
+--]]
+
+	anim:createState("PRIMA_IDLE", 1, 2, 0.13)
+	anim:createState("PRIMA_IDLE_LEFT", 1, 2, 0.13)
+	anim:createState("PRIMA_ATTACK_RIGHT", 3, 4, attack_speed)
+	anim:createState("PRIMA_ATTACK_LEFT", 3, 4, attack_speed)
+
+	anim:createState("SIGNAL_IDLE", 5, 6, 0.13)
+	anim:createState("SIGNAL_IDLE_LEFT", 5, 6, 0.13)
+	anim:createState("SIGNAL_ATTACK_RIGHT", 7, 8, attack_speed)
+	anim:createState("SIGNAL_ATTACK_LEFT", 7, 8, attack_speed)
+
+	anim:createState("THUNDERBYTE_IDLE", 9, 10, 0.13)
+	anim:createState("THUNDERBYTE_IDLE_LEFT", 9, 10, 0.13)
+	anim:createState("THUNDERBYTE_ATTACK_RIGHT", 11, 12, attack_speed)
+	anim:createState("THUNDERBYTE_ATTACK_LEFT", 11, 12, attack_speed)
+
+	anim:createState("TWINNINGS_IDLE", 13, 14, 0.13)
+	anim:createState("TWINNINGS_IDLE_LEFT", 13, 14, 0.13)
+	anim:createState("TWINNINGS_ATTACK_RIGHT", 15, 16, attack_speed)
+	anim:createState("TWINNINGS_ATTACK_LEFT", 15, 16, attack_speed)
+
+
+
+	self._animStates[3][1] = { idle = "PRIMA_IDLE", attack = "PRIMA_ATTACK_RIGHT", left = "PRIMA_IDLE_LEFT", aleft = "PRIMA_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][2] = { idle = "SIGNAL_IDLE", attack = "SIGNAL_ATTACK_RIGHT", left = "SIGNAL_IDLE_LEFT", aleft = "SIGNAL_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][3] = { idle = "THUNDERBYTE_IDLE", attack = "THUNDERBYTE_ATTACK_RIGHT", left = "THUNDERBYTE_IDLE_LEFT", aleft = "THUNDERBYTE_ATTACK_LEFT"  } -- spottah 
+	self._animStates[3][4] = { idle = "TWINNINGS_IDLE", attack = "TWINNINGS_ATTACK_RIGHT", left = "TWINNINGS_IDLE_LEFT", aleft = "TWINNINGS_ATTACK_LEFT"  } -- spottah 
+	
+
+
+
+
+	
+	self._teamTexture = { }
+
+	self._teamTexture[1] = { }
+	self._teamTexture[2] = { }
+
+	self._teamTexture[1][1] = { }
+	self._teamTexture[1][2] = { }
+
+	self._teamTexture[2][1] = { }
+	self._teamTexture[2][2] = { }
+
+	self._tTexture = { }
+
+	for l = 1, 2 do
+		local counter = 1
+		self._tTexture[l] = { }
+		for i,v in pairs(unit_type[l]) do
+			if type(v) == "table" then
+				print("COUNTER IS: "..counter.." FACTION IS: "..l.."")
+				self._tTexture[l][counter] = { }
+				for j, k in pairs(v) do
+					-----------------------------------------
+					--- CREATING TEXTURES FOR THE ASSETS ----
+					-----------------------------------------
+					
+
+					if j == "SpriteSheetTeam1" then
+						local name = "media/units/team/"..v.SpriteSheetTeam1..""
+
+						self._teamTexture[l][1][counter] = wanim:newDeck(name, 32, g_ActionPhaseLayer)
+						self._tTexture[l][counter].p1 = wanim:newDeck(name, 32, g_ActionPhaseLayer)
+					elseif j == "SpriteSheetTeam2" then
+						local name = "media/units/team/"..v.SpriteSheetTeam2..""
+						self._teamTexture[l][2][counter] = wanim:newDeck(name, 32, g_ActionPhaseLayer)
+						self._tTexture[l][counter].p2 = wanim:newDeck(name, 32, g_ActionPhaseLayer)
+					end
+
+
+					-----------------------------------------
+					--- END OF TEXTURE CREATION FOR GFX -----
+					-----------------------------------------
+
+					-----------------------------------------
+					--- STATE CREATION GOES HERE ------------
+					-----------------------------------------
+					local _idle = "SPOTTAH_IDLE"
+					local _attack = "SPOTTAH_ATTACK"
+					local _left = "SPOTTAH_IDLE_LEFT"
+					local _aleft = "SPOTTAH_ATTACK_LEFT"
+					if j == "IDLE" then
+						--print(""..v.Name.."_"..j.."")
+						local valTab = parseDelimitedString(v.IDLE, "-")
+						local stateName = ""..string.upper(v.Name).."_"..j..""
+						anim:createState(stateName, tonumber(valTab[1]), tonumber(valTab[2]), v.speed)
+						_idle = stateName
+					elseif j == "IDLE_LEFT" then
+						--print(""..v.Name.."_"..j.."")
+						local valTab = parseDelimitedString(v.IDLE_LEFT, "-")
+						local stateName = ""..string.upper(v.Name).."_"..j..""
+						anim:createState(stateName, tonumber(valTab[1]), tonumber(valTab[2]), v.speed)
+						_attack = stateName
+					elseif j == "ATTACK" then
+						--print(""..v.Name.."_"..j.."")
+						local valTab = parseDelimitedString(v.ATTACK, "-")
+						local stateName = ""..string.upper(v.Name).."_"..j..""
+						anim:createState(stateName, tonumber(valTab[1]), tonumber(valTab[2]), v.speed)
+						_left = stateName
+					elseif j == "ATTACK_LEFT" then
+						--print(""..v.Name.."_"..j.."")
+						local valTab = parseDelimitedString(v.ATTACK_LEFT, "-")
+						local stateName = ""..string.upper(v.Name).."_"..j..""
+						anim:createState(stateName, tonumber(valTab[1]), tonumber(valTab[2]), v.speed)
+						_aleft = stateName
+					end
+					self._animStates[l][counter] = { idle = _idle, attack = _attack, left = _left, aleft = _aleft  }
+					-----------------------------------------
+					--- STATE CREATION ENDS HERE ------------
+					-----------------------------------------	
+							
+				end
+			end
+			counter = counter + 1		
+		end
+
+	end
+
+
+end
+
+
+function unit:init(_mapFile)
+	self._turn = 1 
+---------------------------------------
+------ TABLES -------------------------
+---------------------------------------
+
+	self:_setupUnitsFromCSV( )
 
 	self._commanderTexture = { }
 	self._commanderTexture[1] = { }
@@ -284,103 +433,8 @@ function unit:init(_mapFile)
 	----------------------
 end
 
+
 function unit:_createStatesForUnits( )
-	local attack_speed = 0.06
-
-	self._animStates = { }
-	self._animStates[1] = { } -- for Mutants
-	self._animStates[2] = { } -- for robots
-	self._animStates[3] = { } -- for commanders
-
-	anim:createState("SPOTTAH_IDLE", 1, 4, 0.13)
-	anim:createState("SPOTTAH_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("SPOTTAH_ATTACK", 10, 18, attack_speed)
-	anim:createState("SPOTTAH_ATTACK_LEFT", 19, 27, attack_speed)
-
-	
-	
-	anim:createState("PANZASPOTTAH_IDLE", 1, 4, 0.13)
-	anim:createState("PANZASPOTTAH_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("PANZASPOTTAH_ATTACK", 12, 22, attack_speed)
-	anim:createState("PANZASPOTTAH_ATTACK_LEFT", 23, 33, attack_speed)
-
-	anim:createState("ATTACKA_IDLE", 1, 4, 0.13)
-	anim:createState("ATTACKA_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("ATTACKA_ATTACK", 11, 20, attack_speed)
-	anim:createState("ATTACKA_ATTACK_LEFT", 21, 30, attack_speed)
-
-	anim:createState("ROKKIT_IDLE", 1, 4, 0.13)
-	anim:createState("ROKKIT_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("ROKKIT_ATTACK", 12, 22, attack_speed)
-	anim:createState("ROKKIT_ATTACK_LEFT", 22, 32, attack_speed)
-
-	anim:createState("TANK_IDLE", 1, 4, 0.13)
-	anim:createState("TANK_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("TANK_ATTACK", 12, 22, attack_speed)
-	anim:createState("TANK_ATTACK_LEFT", 22, 32, attack_speed)
-
-	anim:createState("ROBO_IDLE", 1, 4, 0.13)
-	anim:createState("ROBO_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("ROBO_ATTACK", 15, 28, attack_speed)
-	anim:createState("ROBO_ATTACK_LEFT", 29, 42, attack_speed)
-
-	anim:createState("ROBO2_IDLE", 1, 4, 0.13)
-	anim:createState("ROBO2_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("ROBO2_ATTACK", 11, 19, attack_speed)
-	anim:createState("ROBO2_ATTACK_LEFT", 21, 29, attack_speed)
-
-	anim:createState("PUNCHY_IDLE", 1, 4, 0.13)
-	anim:createState("PUNCHY_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("PUNCHY_ATTACK", 13, 24, attack_speed)
-	anim:createState("PUNCHY_ATTACK_LEFT", 25, 36, attack_speed)
-
-	anim:createState("ROBO_ROKKIT_IDLE", 1, 4, 0.13)
-	anim:createState("ROBO_ROKKIT_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("ROBO_ROKKIT_ATTACK", 12, 21, attack_speed)
-	anim:createState("ROBO_ROKKIT_ATTACK_LEFT", 22, 31, attack_speed)
-
-	anim:createState("MECHA_IDLE", 1, 4, 0.13)
-	anim:createState("MECHA_IDLE_LEFT", 5, 8, 0.13)
-	anim:createState("MECHA_ATTACK", 11, 22, attack_speed)
-	anim:createState("MECHA_ATTACK_LEFT", 23, 34, attack_speed)
-
-
-	anim:createState("PRIMA_IDLE", 1, 2, 0.13)
-	anim:createState("PRIMA_IDLE_LEFT", 1, 2, 0.13)
-	anim:createState("PRIMA_ATTACK_RIGHT", 3, 4, attack_speed)
-	anim:createState("PRIMA_ATTACK_LEFT", 3, 4, attack_speed)
-
-	anim:createState("SIGNAL_IDLE", 5, 6, 0.13)
-	anim:createState("SIGNAL_IDLE_LEFT", 5, 6, 0.13)
-	anim:createState("SIGNAL_ATTACK_RIGHT", 7, 8, attack_speed)
-	anim:createState("SIGNAL_ATTACK_LEFT", 7, 8, attack_speed)
-
-	anim:createState("THUNDERBYTE_IDLE", 9, 10, 0.13)
-	anim:createState("THUNDERBYTE_IDLE_LEFT", 9, 10, 0.13)
-	anim:createState("THUNDERBYTE_ATTACK_RIGHT", 11, 12, attack_speed)
-	anim:createState("THUNDERBYTE_ATTACK_LEFT", 11, 12, attack_speed)
-
-	anim:createState("TWINNINGS_IDLE", 13, 14, 0.13)
-	anim:createState("TWINNINGS_IDLE_LEFT", 13, 14, 0.13)
-	anim:createState("TWINNINGS_ATTACK_RIGHT", 15, 16, attack_speed)
-	anim:createState("TWINNINGS_ATTACK_LEFT", 15, 16, attack_speed)
-
-	self._animStates[1][1] = { idle = "SPOTTAH_IDLE", attack = "SPOTTAH_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "SPOTTAH_ATTACK_LEFT"  } -- spottah 
-	self._animStates[1][2] = { idle = "SPOTTAH_IDLE", attack = "PANZASPOTTAH_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "PANZASPOTTAH_ATTACK_LEFT"} -- spottah 
-	self._animStates[1][3] = { idle = "ATTACKA_IDLE", attack = "ATTACKA_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ATTACKA_ATTACK_LEFT" } -- spottah 
-	self._animStates[1][4] = { idle = "ROKKIT_IDLE", attack = "ROKKIT_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ROKKIT_ATTACK_LEFT" } -- spottah 
-	self._animStates[1][5] = { idle = "TANK_IDLE", attack = "TANK_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "TANK_ATTACK_LEFT" } -- spottah 
-
-	self._animStates[2][1] = { idle = "ROBO_IDLE", attack = "ROBO_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ROBO_ATTACK_LEFT" } 
-	self._animStates[2][2] = { idle = "ROBO2_IDLE", attack = "ROBO2_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ROBO2_ATTACK_LEFT" } 
-	self._animStates[2][3] = { idle = "PUNCHY_IDLE", attack = "PUNCHY_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "PUNCHY_ATTACK_LEFT" }
-	self._animStates[2][4] = { idle = "ROBO_ROKKIT_IDLE", attack = "ROBO_ROKKIT_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "ROBO_ROKKIT_ATTACK_LEFT" }  
-	self._animStates[2][5] = { idle = "MECHA_IDLE", attack = "MECHA_ATTACK", left = "SPOTTAH_IDLE_LEFT", aleft = "MECHA_ATTACK_LEFT" } 
-
-	self._animStates[3][1] = { idle = "PRIMA_IDLE", attack = "PRIMA_ATTACK_RIGHT", left = "PRIMA_IDLE_LEFT", aleft = "PRIMA_ATTACK_LEFT"  } -- spottah 
-	self._animStates[3][2] = { idle = "SIGNAL_IDLE", attack = "SIGNAL_ATTACK_RIGHT", left = "SIGNAL_IDLE_LEFT", aleft = "SIGNAL_ATTACK_LEFT"  } -- spottah 
-	self._animStates[3][3] = { idle = "THUNDERBYTE_IDLE", attack = "THUNDERBYTE_ATTACK_RIGHT", left = "THUNDERBYTE_IDLE_LEFT", aleft = "THUNDERBYTE_ATTACK_LEFT"  } -- spottah 
-	self._animStates[3][4] = { idle = "TWINNINGS_IDLE", attack = "TWINNINGS_ATTACK_RIGHT", left = "TWINNINGS_IDLE_LEFT", aleft = "TWINNINGS_ATTACK_LEFT"  } -- spottah 
 
 	
 end
@@ -420,6 +474,8 @@ function unit:addUnitsToMap(_mapFile)
 
 		tb3 = table.load(""..pathCat.map.."/".._mapFile..".mie")
 	end	
+
+
 	
 	for x = 1, #tb3 do
 		for y = 1, #tb3[x] do
@@ -448,7 +504,7 @@ function unit:addUnitsToMap(_mapFile)
 		end
 	end
 
-	unit:newCommander(1, 1, 1, 1)
+	--[[unit:newCommander(1, 1, 1, 1)
 	unit:newCommander(1, 2, 1, 2)
 	unit:newCommander(1, 1, 2, 3)
 	unit:newCommander(1, 2, 2, 4)
@@ -456,14 +512,32 @@ function unit:addUnitsToMap(_mapFile)
 	unit:newCommander(2, 7, 5, 1)
 	unit:newCommander(2, 7, 6, 2)
 	unit:newCommander(2, 7, 7, 3)
-	unit:newCommander(2, 6, 5, 4)
+	unit:newCommander(2, 6, 5, 4)--]]
 end
 
 ---------------------------------------
 ------ SPAWNING/CREATION/GENERATION----
 ---------------------------------------
 function unit:new(_team,_x, _y, _type, _doneFlagOptional)
-	local untTeam = self._teamToPlayer[_team].team
+
+	-- self._tTexture = All textures here
+	-- 1 - MUTANTS
+	-- 2 - Robots
+	local untTeam = self._teamToPlayer[_team].team -- faction
+
+	for i,v in pairs(self._tTexture[untTeam]) do
+		if type(v) == "table" then
+			for k, j in ipairs(v) do
+				print("k IS: "..k.."")
+			end
+		end
+	end
+
+	local teamTable = self._tTexture[untTeam][_type].p1
+	if _team == 2 then
+		teamTable = self._tTexture[untTeam][_type].p2
+	end
+	print("TEAM IS: ".._team.." FACTION IS: "..untTeam.."")
 	local temp = {
 		id = #self._unitTable + 1,
 		x = math.floor(_x),
@@ -471,7 +545,7 @@ function unit:new(_team,_x, _y, _type, _doneFlagOptional)
 		tp = _type,
 		team = _team,
 		--img = anim:newAnim(self._teamTex[unit_type[_team][_type].tex], 16, -300-9000, 0, 1),--image:newDeckImage(self._teamTex[_team], 0, 0, unit_type[_type].tex),
-		img = anim:newAnim(self._teamTexture[_team][untTeam][_type], 16, -300-9000, 0, 1),--image:newDeckImage(self._teamTex[_team], 0, 0, unit_type[_type].tex),
+		img = anim:newAnim(teamTable, 2, -300-9000, 0, 1),--image:newDeckImage(self._teamTex[_team], 0, 0, unit_type[_type].tex),
 		damage = unit_type[untTeam][_type].damage,
 		path = {},
 		length = 0, -- how many steps the path has
@@ -539,11 +613,11 @@ font:setText(v.hb_text, ""..fontHP.."", v.act_x+2, v.act_y-8)
 
 		self._unitBuildList.p2 = self._unitBuildList.p2 + 1
 
-		if temp.faction == 1 then
+		--[[if temp.faction == 1 then
 			temp.faction = 2
 		elseif temp.faction == 2 then
 			temp.faction = 1
-		end
+		end--]]
 	end
 
 	--[[
@@ -560,10 +634,16 @@ healthGrid = mGrid:new(, _height, _tileSize, _image, _optionalGridTile, _string,
 	--mGrid:setIndex(temp.healthGrid, 2)
 
 	temp.eff = nil
-	temp.canConquer = unit_type[untTeam][temp.tp].canCapture
+	local bool = false
+	if unit_type[untTeam][temp.tp].canCapture == "TRUE" then
+		bool = true
+	end
+	temp.canConquer = bool
 	table.insert(self._unitTable, temp)
 
-	anim:setState(temp.img, self._animStates[temp.faction][temp.tp].idle)
+	if  self._animStates[temp.faction][temp.tp].idle ~= nil then
+		anim:setState(temp.img, self._animStates[temp.faction][temp.tp].idle)
+	end
 	--anim:setState(temp.hb_c, "HB_BG")
 
 	anim:flip(temp.img, true)
@@ -828,14 +908,14 @@ function unit:_drawHealthbar(_id, _bool)
 
 	if v.hp < 0 then
 		v.hp = 0
-	elseif v.hp > checkTable[v.team][v.tp].health then
-		v.hp = checkTable[v.team][v.tp].health
+	elseif v.hp > checkTable[v.faction][v.tp].health then
+		v.hp = checkTable[v.faction][v.tp].health
 	end
 
 	if v.displayHP < 0 then
 		v.displayHP = 0
-	elseif v.displayHP > checkTable[v.team][v.tp].health then
-		v.displayHP = checkTable[v.team][v.tp].health
+	elseif v.displayHP > checkTable[v.faction][v.tp].health then
+		v.displayHP = checkTable[v.faction][v.tp].health
 	end
 	--image:_setScale(v.hb_b, scaleFactor, 1)
 	--image:updateImage(v.hb_b, v.act_x, v.act_y-3 )
@@ -890,6 +970,7 @@ function unit:getSelectedUnit( )
 		return _unit
 	end
 end
+
 
 
 function unit:selectUnit(_x, _y)

@@ -32,10 +32,10 @@ function interface:_addUiToDaddyTable(widgets, _doNotInclude1, _doNotInclude2, _
 			_doNotInclude3 = "RANDOMGWTFNONAMEHEREIFIEVERNAMEITLIKETHISTHANRAINHELLONMYASS"
 		end
 		if ""..i.."" ~= "".._doNotInclude1.."" and ""..i.."" ~= "".._doNotInclude2.."" and ""..i.."" ~= "".._doNotInclude3..""   then
-			print("FUCKING I: "..i.." FUCKING PARAM: ".._doNotInclude1.."")
-			print("FUCKING I: "..i.." FUCKING PARAM: ".._doNotInclude1.."")
+			--print("FUCKING I: "..i.." FUCKING PARAM: ".._doNotInclude1.."")
+			--print("FUCKING I: "..i.." FUCKING PARAM: ".._doNotInclude1.."")
 
-			print("AND za tyepes be: ".. k.window:getType().."")
+			--print("AND za tyepes be: ".. k.window:getType().."")
 			if k.window:getType() == "Button" or k.window:getType() == "WidgetList" then
 				k.window:registerEventHandler(k.window.EVENT_MOUSE_ENTERS, nil, _onEnter )
 				k.window:registerEventHandler(k.window.EVENT_MOUSE_LEAVES, nil, _onExit )
@@ -45,7 +45,7 @@ function interface:_addUiToDaddyTable(widgets, _doNotInclude1, _doNotInclude2, _
 
 				end
 
-				--print("FIRST ONE TO ENTER IS: "..i.." and v is: "..k.window.widget.."")
+				----print("FIRST ONE TO ENTER IS: "..i.." and v is: "..k.window.widget.."")
 				--self:_makeListOfTableElements(counter, i, v)--recording them
 				childTable[counter] = { input = i, v = k }
 				counter = counter + 1
@@ -71,29 +71,29 @@ function interface:_decIndex( )
 end
 
 function interface:_IncIndex( )
-	print("INCREASE INDEX")
+	--print("INCREASE INDEX")
 	if self._uiTableIndex < #self._uiElementTable then
 		self._uiTableIndex = self._uiTableIndex + 1
 	else
 		self:_decIndex( )
 	end
 	self._pointerPosition = 1
-	print("INCRESED")
+	--print("INCRESED")
 	return self._uiTableIndex
 end
 
 
 
 function interface:_makeListOfTableElements(_i, _input, _v)
-	print("I'S VALUE IS: ".._i.."")
+	--print("I'S VALUE IS: ".._i.."")
 	self._uiTable[_i] = { input = _input, v = _v }
 end
 
-function interface:_debugPrintElementsTable( )
+function interface:_debugprintElementsTable( )
 	local tab = self:_retrieveCurrentChildTable( )
 	for i,v in pairs(tab) do
-		print(tab[i].input)
-		--print(type(tab[i].v))
+		--print(tab[i].input)
+		----print(type(tab[i].v))
 	end
 end
 
@@ -162,28 +162,28 @@ function interface:_handleUiNavigation( )
 		--local x = tableElement.window:screenX()
 		--local y = tableElement.window:screenY()
 		local x, y = tableElement.window:getScreenPos()
-	--	print("X IS: "..x.. " WHILE Y IS: "..y.."")
+	--	--print("X IS: "..x.. " WHILE Y IS: "..y.."")
 		local gMSX, gMSY = element.gui:getMouseCoords( )
-	--	print("MS X: "..gMSX.." MOUSE Y: "..gMSY.."")
+	--	--print("MS X: "..gMSX.." MOUSE Y: "..gMSY.."")
 		local sx, sy = tableElement.window:getDim()
 
 		if tableElement.window:getType() == "WidgetList" then
 
 		end
-		print("CHILD NAME I IS: "..tab[self._pointerPosition].input.."")
+		--print("CHILD NAME I IS: "..tab[self._pointerPosition].input.."")
 
-		--print("Current Table Element is: "..tableElement.window:getType().."")
+		----print("Current Table Element is: "..tableElement.window:getType().."")
 		--element.gui:setFocus(tableElement.window)
 		--element.gui:injectMouseMove(x-2, y-2)
 		--element.gui:injectMouseMove(x+sx/2, y+sy/2)
 
-		print("X IS AT: "..x.." Y I AT: "..y.." GMSX: "..gMSX.." GMSY: "..gMSY.."")
+		--print("X IS AT: "..x.." Y I AT: "..y.." GMSX: "..gMSX.." GMSY: "..gMSY.."")
 		self._vMouseX = x
 		self._vMouseY = (y)
 	end
 
 
-	--print("KEY PRESSED IS: "..key.."")
+	----print("KEY PRESSED IS: "..key.."")
 end
 
 function interface:_updateVirtualMouse( )
@@ -195,11 +195,11 @@ function interface:_updateVirtualMouse( )
 end
 
 function _testNewGamePressed( )
-	--print("NEW GAME PRESSED")
+	----print("NEW GAME PRESSED")
 end
 
 function  _onEnter( )
-	--print("MOUSE ENTERS: ")
+	----print("MOUSE ENTERS: ")
 end
 
 --[[
@@ -223,7 +223,7 @@ function orderedNext(t, state)
     -- order. We use a temporary ordered key table that is stored in the
     -- table being iterated.
 
-    --print("orderedNext: state = "..tostring(state) )
+    ----print("orderedNext: state = "..tostring(state) )
     if state == nil then
         -- the first time, generate the index
         t.__orderedIndex = __genOrderedIndex( t )
@@ -262,20 +262,20 @@ function interface:_createTestUI( )
 		self._newGameBttn = widgets.newGameBttn.window
 		self._newGameBttn:registerEventHandler(self._newGameBttn.EVENT_BUTTON_CLICK, nil, _testNewGamePressed)
 	else
-		print("Asteroid Button false")
+		--print("Asteroid Button false")
 	end
 
 	if (nil ~= widgets.mainMenuPanel) then
 		self._mainMenuPanel = widgets.mainMenuPanel.window
 		--self._newGameBttn:registerEventHandler(self._newGameBttn.EVENT_BUTTON_CLICK, nil, _handleNewGameButtonPressed)
 	else
-		print("Asteroid Button false")
+		--print("Asteroid Button false")
 	end
 
 	--self._uiTable = { }
 	--counter = 1
 
-	print("BEFORE PAIRS LOOP")
+	--print("BEFORE PAIRS LOOP")
 	self:_addUiToDaddyTable(widgets)
 
 
@@ -307,17 +307,17 @@ function interface:_createTestUI( )
 
 	--self._testLabel:fitLabelText( )
 	for i,v in pairs(self._testLabel) do
-		--print("LABEL I CONTENT: "..i.."")
+		----print("LABEL I CONTENT: "..i.."")
 		if type(v) == "table" then
 			for k, j in pairs(v) do
-			--	print("V is: "..k.."")
+			--	--print("V is: "..k.."")
 			end
 		end
 	end
 	--self._testLabel._text:fitLabelText(	self._testLabel._text)
-	--print("TyPE OF TEXT IS: "..type(self._testLabel._text).."")
+	----print("TyPE OF TEXT IS: "..type(self._testLabel._text).."")
 	--[[for i,v in pairs(self._testLabel._text) do
-		print("I IS: "..i.."")
+		--print("I IS: "..i.."")
 	end--]]
 	self:_addUiToDaddyTable(widgets)
 
@@ -326,7 +326,7 @@ function interface:_createTestUI( )
 
 	self._pointerPosition = 1
 
-	interface:_debugPrintElementsTable( )
+	interface:_debugprintElementsTable( )
 end
 
 

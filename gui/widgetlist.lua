@@ -142,48 +142,10 @@ function WidgetListRow:setWidget(idx, widget)
 	end
 
 	if self._oneRowLower == true then
-		--[[print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")
-		print("ONE ROW TRUE: "..x.."")--]]
+
 		widget:setPos(x, 0)
 	else
-		--[[print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")
-		print("ONE ROW FALSE: "..x.."")--]]
+
 		widget:setPos(x, 0)
 	end
 	widget:setDim(self._colWidths[idx], self._height)
@@ -364,6 +326,10 @@ function _M.WidgetList:_onSetPos()
 	if (nil ~= self._scrollBar) then
 		self._scrollBar:setPos(self:width() - SCROLL_BAR_WIDTH, HEADER_HEIGHT)
 	end
+end
+
+function _M.WidgetList:_disableScrollBar( )
+	self._scrollBar:setDim(0, 0)
 end
 
 function _M.WidgetList:_onSetDim()
