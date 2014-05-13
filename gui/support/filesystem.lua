@@ -36,6 +36,7 @@
 local _M = {}
 
 function _M.pathJoin(...)
+	local arg = {...}
 	local s = ""
 
 	for i, v in ipairs(arg) do
